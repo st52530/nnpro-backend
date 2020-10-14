@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -17,10 +16,9 @@ public class UserController {
     private UserService userService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/signUp")
-    public User singUp(@RequestBody User user) {
-        return userService.save(user);
+    @PostMapping("/sign-up")
+    public User signUp(@RequestBody User user) {
+        return userService.signUp(user);
     }
-
 
 }

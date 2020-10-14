@@ -5,7 +5,7 @@ import cz.upce.vetalmael.model.User;
 
 public interface UserService {
 
-    User save(User user);
+    User signUp(User user);
 
     User findByUsername(String username);
 }
