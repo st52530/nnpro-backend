@@ -1,7 +1,5 @@
 package cz.upce.vetalmael.security;
 
-import cz.upce.vetalmael.security.JWTAuthenticationFilter;
-import cz.upce.vetalmael.security.JWTAuthorizationFilter;
 import cz.upce.vetalmael.service.implementation.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -12,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static cz.upce.vetalmael.security.SecurityConstants.*;
+import static cz.upce.vetalmael.security.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -29,6 +27,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(  // Allow swagger.
+                        "/v3/api-docs/**",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/swagger"
+                ).permitAll()
                 .antMatchers("/user/test").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
