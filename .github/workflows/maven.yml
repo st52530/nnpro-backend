@@ -21,9 +21,9 @@ jobs:
       with:
         java-version: 11
     - name: Setup env vars
-        env:
-            DATABASE_FULL_CONNECTION_URL: ${{ secrets.DATABASE_FULL_CONNECTION_URL }}
-            DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-            DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      env:
+        DATABASE_FULL_CONNECTION_URL: ${{ secrets.DATABASE_FULL_CONNECTION_URL }}
+        DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
     - name: Build with Maven
       run: mvn -B package --file pom.xml
