@@ -5,8 +5,10 @@ import org.springframework.security.core.GrantedAuthority;
 import java.io.Serializable;
 
 public enum Role implements Serializable, GrantedAuthority {
-    ADMIN("ADMIN"),
-    USER("USER");
+    ADMINISTRATOR("ADMINISTRATOR"),
+    CLIENT("CLIENT"),
+    VETERINARY("VETERINARY"),
+    VETERINARY_TECHNICIAN("VETERINARY_TECHNICIAN");
 
     private final String role;
 

@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +25,11 @@ public class User implements Serializable, UserDetails {
     private int idUser;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    @Email
+    private String email;
+
+    @Column(nullable = false)
+    private String fullName;
 
     @Column(nullable = false)
     @JsonIgnore
@@ -41,6 +46,11 @@ public class User implements Serializable, UserDetails {
             roles.add(Role.valueOf(s));
         }
         return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @JsonIgnore
