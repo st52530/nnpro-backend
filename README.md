@@ -1,4 +1,4 @@
 # nnpro-backend
 Backend pro ročníkový projekt Veterina 
 
-![.github/workflows/maven.yml](https://github.com/st52530/nnpro-backend/workflows/.github/workflows/maven.yml/badge.svg)
+![Java CI with Maven](https://github.com/st52530/nnpro-backend/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main)
