@@ -8,9 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -24,7 +26,14 @@ public class User implements Serializable, UserDetails {
     private int idUser;
 
     @Column(nullable = false, unique = true)
+    @Email
+    private String email;
+
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
+    private String fullName;
 
     @Column(nullable = false)
     @JsonIgnore
@@ -42,6 +51,14 @@ public class User implements Serializable, UserDetails {
         }
         return roles;
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Animal> animals = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="clinic_id")
+    private Clinic workplace;
 
     @JsonIgnore
     @Override

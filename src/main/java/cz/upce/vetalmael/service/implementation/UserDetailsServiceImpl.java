@@ -1,6 +1,7 @@
 package cz.upce.vetalmael.service.implementation;
 
-import cz.upce.vetalmael.service.UserService;
+import cz.upce.vetalmael.service.ClientService;
+import cz.upce.vetalmael.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,11 +14,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     @Autowired
-    private UserService userService;
+    private LoginService loginService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userService.findByUsername(username);
+        return loginService.findByUsername(username);
     }
 
 

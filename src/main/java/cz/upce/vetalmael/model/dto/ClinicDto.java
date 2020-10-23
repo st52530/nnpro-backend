@@ -1,5 +1,4 @@
 package cz.upce.vetalmael.model.dto;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +6,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpDto {
+public class ClinicDto {
 
-    private String username;
+    private int idClinic;
+    private String name;
+    private String address;
 
-    private String password;
 }
