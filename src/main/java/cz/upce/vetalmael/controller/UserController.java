@@ -15,16 +15,9 @@ import javax.transaction.Transactional;
 public class UserController {
 
     @Autowired
-    private ClientService clientService;
-
-    @Autowired
     private LoginService loginService;
 
-    @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/sign-up")
-    public User signUp(@RequestBody SingUpDto user) {
-        return clientService.addClient(user);
-    }
+
 
     @PostMapping("/login")
     public String login(@RequestBody SignInDto signInDto) {

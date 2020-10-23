@@ -30,7 +30,7 @@ public class User implements Serializable, UserDetails {
     private String email;
 
     @Column(nullable = false, unique = true)
-    private String username = email;
+    private String username;
 
     @Column(nullable = false)
     private String fullName;
@@ -53,7 +53,7 @@ public class User implements Serializable, UserDetails {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Animal> animals = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

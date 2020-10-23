@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String login(SignInDto user) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword(), new ArrayList<>()));
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>()));
         if(authenticate.isAuthenticated()){
             List<String> collect = authenticate.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
             return JWT.create()

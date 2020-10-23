@@ -25,6 +25,8 @@ public class ClientServiceImpl implements ClientService {
     public void addClient(SingUpDto user){
         User dbUser = new User();
         dbUser.setEmail(user.getEmail());
+        dbUser.setUsername(user.getUsername());
+        dbUser.setFullName(user.getFullName());
         dbUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         dbUser.setRoles(Role.CLIENT.getAuthority());
         userRepository.save(dbUser);

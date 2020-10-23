@@ -24,11 +24,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void addEmployee(EmployeeDto employeeDto) {
         User employee = new User();
         employee.setEmail(employeeDto.getEmail());
+        employee.setUsername(employeeDto.getUsername());
         employee.setFullName(employeeDto.getFullName());
         employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
         employee.setRoles(employeeDto.getRole().toString());
         Clinic clinic = new Clinic();
         clinic.setIdClinic(employeeDto.getClinicDto().getIdClinic());
+        employee.setWorkplace(clinic);
         userRepository.save(employee);
     }
 
@@ -37,11 +39,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         User employee = new User();
         employee.setIdUser(employeeDto.getIdEmployee());
         employee.setEmail(employeeDto.getEmail());
+        employee.setUsername(employeeDto.getUsername());
         employee.setFullName(employeeDto.getFullName());
         employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
         employee.setRoles(employeeDto.getRole().toString());
         Clinic clinic = new Clinic();
         clinic.setIdClinic(employeeDto.getClinicDto().getIdClinic());
+        employee.setWorkplace(clinic);
         userRepository.save(employee);
 
     }

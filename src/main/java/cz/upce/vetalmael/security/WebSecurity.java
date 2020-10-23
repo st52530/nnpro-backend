@@ -29,15 +29,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, SIGN_IN_URL).permitAll()
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(  // Allow swagger.
                         "/v3/api-docs/**",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
                         "/swagger"
                 ).permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // this disables session creation on Spring Security
