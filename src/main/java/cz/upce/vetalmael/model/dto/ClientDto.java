@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalDto {
+public class ClientDto {
 
-    private int idAnimal;
-    private String name;
-    private ClientDto owner;
+    private int idUser;
+
 }

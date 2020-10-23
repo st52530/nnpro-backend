@@ -29,6 +29,9 @@ public class User implements Serializable, UserDetails {
     @Email
     private String email;
 
+    @Column(nullable = false, unique = true)
+    private String username = email;
+
     @Column(nullable = false)
     private String fullName;
 
@@ -49,18 +52,13 @@ public class User implements Serializable, UserDetails {
         return roles;
     }
 
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Animal> animals = new ArrayList<>();
 
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="clinic_id")
+    private Clinic workplace;
 
     @JsonIgnore
     @Override
