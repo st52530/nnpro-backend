@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -47,6 +48,14 @@ public class User implements Serializable, UserDetails {
         }
         return roles;
     }
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Animal> animals = new ArrayList<>();
+
 
     @Override
     public String getUsername() {

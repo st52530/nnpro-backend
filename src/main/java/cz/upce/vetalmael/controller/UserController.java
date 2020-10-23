@@ -23,7 +23,7 @@ public class UserController {
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/sign-up")
     public User signUp(@RequestBody SingUpDto user) {
-        return clientService.addUser(user);
+        return clientService.addClient(user);
     }
 
     @PostMapping("/login")

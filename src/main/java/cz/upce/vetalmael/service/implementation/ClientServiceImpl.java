@@ -22,12 +22,12 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Override
-    public User addUser(SingUpDto user){
+    public void addClient(SingUpDto user){
         User dbUser = new User();
         dbUser.setEmail(user.getEmail());
         dbUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         dbUser.setRoles(Role.CLIENT.getAuthority());
-        return userRepository.save(dbUser);
+        userRepository.save(dbUser);
     }
 
 
