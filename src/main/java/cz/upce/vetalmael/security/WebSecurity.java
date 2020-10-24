@@ -36,6 +36,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/swagger"
                 ).permitAll()
+                .antMatchers("/administrator").permitAll() // smazat potom
                 .antMatchers(HttpMethod.POST, SIGN_IN_URL).permitAll()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .anyRequest().authenticated()
