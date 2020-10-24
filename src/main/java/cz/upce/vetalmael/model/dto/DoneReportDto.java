@@ -15,11 +15,11 @@ public class DoneReportDto {
     private String textDescription;
     private String textDiagnosis;
     private String textRecommendation;
-    //private AnimalDto animalDto;
+    private int idAnimal;
     private final ReportState reportState = ReportState.DONE;
-    //private DiagnosisDto diagnosisDto;
-    //private OperationDto operationDto;
-    //private Set<MedicineDto> medicines;
+    private Integer idDiagnosis;
+    private Integer idOperation;
+    private Set<Integer> setOfIdMedicines;
     //Consumables
 }
 

@@ -8,6 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+
 @Service(value = "clinicService")
 public class ClinicServiceImpl implements ClinicService {
 
@@ -27,5 +30,15 @@ public class ClinicServiceImpl implements ClinicService {
     @Override
     public void removeClinic(int idClinic) {
         clinicRepository.deleteById(idClinic);
+    }
+
+    @Override
+    public Clinic getClinic(int idClinic) {
+        return clinicRepository.getOne(idClinic);
+    }
+
+    @Override
+    public List<Clinic> getClinics() {
+        return clinicRepository.findAll();
     }
 }
