@@ -45,20 +45,34 @@ public class User implements Serializable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<Role> roles = new ArrayList<>();
-        String[] split = this.roles.split(",");
-        for (String s : split) {
-            roles.add(Role.valueOf(s));
+        if(this.roles !=null) {
+            String[] split = this.roles.split(",");
+            for (String s : split) {
+                roles.add(Role.valueOf(s));
+            }
         }
         return roles;
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="clinic_id")
+    private Clinic workplace;
 
     @JsonIgnore
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Animal> animals = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="clinic_id")
-    private Clinic workplace;
+    @JsonIgnore
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "veterinary", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Report> reports = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 
     @JsonIgnore
     @Override

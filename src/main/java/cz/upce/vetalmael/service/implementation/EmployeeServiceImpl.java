@@ -21,21 +21,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void addEmployee(EmployeeDto employeeDto) {
+    public User addEmployee(EmployeeDto employeeDto) {
         User employee = new User();
         employee.setEmail(employeeDto.getEmail());
         employee.setUsername(employeeDto.getUsername());
         employee.setFullName(employeeDto.getFullName());
         employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
         employee.setRoles(employeeDto.getRole().toString());
-        Clinic clinic = new Clinic();
-        clinic.setIdClinic(employeeDto.getClinicDto().getIdClinic());
-        employee.setWorkplace(clinic);
-        userRepository.save(employee);
+        if(employeeDto.getClinicDto() !=null) {
+            Clinic clinic = new Clinic();
+            clinic.setIdClinic(employeeDto.getClinicDto().getIdClinic());
+            employee.setWorkplace(clinic);
+        }
+        return userRepository.save(employee);
     }
 
     @Override
-    public void editEmployee(EmployeeDto employeeDto) {
+    public User editEmployee(EmployeeDto employeeDto) {
         User employee = new User();
         employee.setIdUser(employeeDto.getIdEmployee());
         employee.setEmail(employeeDto.getEmail());
@@ -43,10 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setFullName(employeeDto.getFullName());
         employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
         employee.setRoles(employeeDto.getRole().toString());
-        Clinic clinic = new Clinic();
-        clinic.setIdClinic(employeeDto.getClinicDto().getIdClinic());
-        employee.setWorkplace(clinic);
-        userRepository.save(employee);
+        if(employeeDto.getClinicDto() !=null) {
+            Clinic clinic = new Clinic();
+            clinic.setIdClinic(employeeDto.getClinicDto().getIdClinic());
+            employee.setWorkplace(clinic);
+        }
+        return userRepository.save(employee);
 
     }
 

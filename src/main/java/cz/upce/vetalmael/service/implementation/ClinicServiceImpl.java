@@ -18,9 +18,9 @@ public class ClinicServiceImpl implements ClinicService {
     private ClinicRepository clinicRepository;
 
     @Override
-    public void addClinic(ClinicDto clinicDto) {
+    public Clinic addClinic(ClinicDto clinicDto) {
         Clinic clinic = modelMapper.map(clinicDto, Clinic.class);
-        clinicRepository.save(clinic);
+        return clinicRepository.save(clinic);
 
     }
 

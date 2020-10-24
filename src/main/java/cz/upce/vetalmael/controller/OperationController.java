@@ -1,8 +1,8 @@
 package cz.upce.vetalmael.controller;
 
-import cz.upce.vetalmael.model.User;
-import cz.upce.vetalmael.model.dto.EmployeeDto;
-import cz.upce.vetalmael.service.EmployeeService;
+import cz.upce.vetalmael.model.Operation;
+import cz.upce.vetalmael.model.dto.OperationDto;
+import cz.upce.vetalmael.service.OperationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,29 +14,29 @@ import javax.transaction.Transactional;
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/operation")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
-public class EmployeeController {
+public class OperationController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private OperationService operationService;
 
     @Transactional(rollbackOn = Exception.class)
     @PostMapping
-    public ResponseEntity<User> addEmployee(@RequestBody EmployeeDto employeeDto) {
-        return ResponseEntity.ok(employeeService.addEmployee(employeeDto));
+    public ResponseEntity<Operation> addAnimal(@RequestBody OperationDto operationDto) {
+        return ResponseEntity.ok(operationService.addOperation(operationDto));
     }
 
     @Transactional(rollbackOn = Exception.class)
     @PutMapping
-    public ResponseEntity<User> editEmployee(@RequestBody EmployeeDto employeeDto) {
-        return ResponseEntity.ok(employeeService.editEmployee(employeeDto));
+    public ResponseEntity<Operation> editAnimal(@RequestBody OperationDto operationDto) {
+        return ResponseEntity.ok(operationService.editOperation(operationDto));
     }
 
-    @DeleteMapping("/{idEmployee}")
-    public ResponseEntity<?> removeEmployee(@PathVariable int idEmployee) {
+    @DeleteMapping("/{idOperation}")
+    public ResponseEntity<?> removeOperation(@PathVariable int idOperation) {
         try {
-            employeeService.removeEmployee(idEmployee);
+            operationService.removeOperation(idOperation);
             return ResponseEntity.noContent().build();
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();

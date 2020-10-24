@@ -1,8 +1,10 @@
 package cz.upce.vetalmael.controller;
 
-import cz.upce.vetalmael.model.User;
-import cz.upce.vetalmael.model.dto.EmployeeDto;
-import cz.upce.vetalmael.service.EmployeeService;
+import cz.upce.vetalmael.model.Animal;
+import cz.upce.vetalmael.model.Diagnosis;
+import cz.upce.vetalmael.model.dto.AnimalDto;
+import cz.upce.vetalmael.model.dto.DiagnosisDto;
+import cz.upce.vetalmael.service.DiagnosisService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,29 +16,29 @@ import javax.transaction.Transactional;
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/diagnosis")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
-public class EmployeeController {
+public class DiagnosisController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private DiagnosisService diagnosisService;
 
     @Transactional(rollbackOn = Exception.class)
     @PostMapping
-    public ResponseEntity<User> addEmployee(@RequestBody EmployeeDto employeeDto) {
-        return ResponseEntity.ok(employeeService.addEmployee(employeeDto));
+    public ResponseEntity<Diagnosis> addAnimal(@RequestBody DiagnosisDto diagnosisDto) {
+        return ResponseEntity.ok(diagnosisService.addDiagnosis(diagnosisDto));
     }
 
     @Transactional(rollbackOn = Exception.class)
     @PutMapping
-    public ResponseEntity<User> editEmployee(@RequestBody EmployeeDto employeeDto) {
-        return ResponseEntity.ok(employeeService.editEmployee(employeeDto));
+    public ResponseEntity<Diagnosis> editAnimal(@RequestBody DiagnosisDto diagnosisDto) {
+        return ResponseEntity.ok(diagnosisService.editDiagnosis(diagnosisDto));
     }
 
-    @DeleteMapping("/{idEmployee}")
-    public ResponseEntity<?> removeEmployee(@PathVariable int idEmployee) {
+    @DeleteMapping("/{idDiagnosis}")
+    public ResponseEntity<?> removeDiagnosis(@PathVariable int idDiagnosis) {
         try {
-            employeeService.removeEmployee(idEmployee);
+            diagnosisService.removeDiagnosis(idDiagnosis);
             return ResponseEntity.noContent().build();
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();

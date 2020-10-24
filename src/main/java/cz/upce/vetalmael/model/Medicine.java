@@ -8,34 +8,34 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "clinic")
+@Table(name = "medicine")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Clinic implements Serializable {
+public class Medicine implements Serializable {
 
     @Id
     @GeneratedValue
-    private int idClinic;
+    private int idMedicine;
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private String address;
+    private String code;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "workplace", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> employees = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reservation> reservations = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "medicine", cascade = CascadeType.PERSIST)
     private List<ClinicMedicine> clinicMedicines = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "report_medicine",
+            joinColumns = { @JoinColumn(name = "medicine_id") },
+            inverseJoinColumns = { @JoinColumn(name = "author_id") })
+    private Set<Report> reports = new HashSet<>();
 }

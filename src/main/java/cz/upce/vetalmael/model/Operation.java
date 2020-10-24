@@ -11,24 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "animal")
+@Table(name = "operation")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Animal implements Serializable {
+public class Operation implements Serializable {
 
     @Id
     @GeneratedValue
-    private int idAnimal;
+    private int idOperation;
 
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-    private User owner;
+    @Column(nullable = false)
+    private double price;
+
+    @Column(nullable = false)
+    private String type;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "operation", cascade = CascadeType.PERSIST)
     private List<Report> reports = new ArrayList<>();
 }
