@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.transaction.Transactional;
+import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
@@ -47,6 +47,16 @@ public class ClinicController {
     @PostMapping("/{idClinic}/medicine/{idMedicine}")
     public ResponseEntity<ClinicMedicine> addMedicineToClinic(@RequestBody ClinicMedicineDto clinicMedicineDto, @PathVariable int idClinic, @PathVariable int idMedicine) {
         return ResponseEntity.ok(clinicMedicineService.addClinicMedicine(clinicMedicineDto, idClinic, idMedicine));
+    }
+
+    @GetMapping("s")
+    public ResponseEntity<List<Clinic>> getClinics(){
+        return ResponseEntity.ok(clinicService.getClinics());
+    }
+
+    @GetMapping("/{idClinic}")
+    public ResponseEntity<Clinic> getClinic(@PathVariable int idClinic){
+        return ResponseEntity.ok(clinicService.getClinic(idClinic));
     }
 
     @Transactional(rollbackOn = Exception.class)

@@ -23,32 +23,30 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report addReadyReport(ReadyReportDto reportDto) {
-        /*Report report = new Report();
+        Report report = new Report();
         report.setTextDescription(reportDto.getTextDescription());
         report.setReportState(reportDto.getReportState());
         Animal animal = new Animal();
-        animal.setIdAnimal(reportDto.getAnimalDto().getIdAnimal());
+        animal.setIdAnimal(reportDto.getIdAnimal());
         report.setAnimal(animal);
-        return reportRepository.save(report);*/
-        return null;
+        return reportRepository.save(report);
     }
 
     @Override
     public Report editReadyReport(ReadyReportDto reportDto, int idReport) {
-        /*Report report = new Report();
+        Report report = new Report();
         report.setIdReport(idReport);
         report.setTextDescription(reportDto.getTextDescription());
         report.setReportState(reportDto.getReportState());
         Animal animal = new Animal();
-        animal.setIdAnimal(reportDto.getAnimalDto().getIdAnimal());
+        animal.setIdAnimal(reportDto.getIdAnimal());
         report.setAnimal(animal);
-        return reportRepository.save(report);*/
-        return null;
+        return reportRepository.save(report);
     }
 
     @Override
     public Report addDoneReport(DoneReportDto reportDto, String veterinaryUsername) {
-        /*Report report = new Report();
+        Report report = new Report();
 
         report.setTextDiagnosis(reportDto.getTextDiagnosis());
         report.setTextRecommendation(reportDto.getTextRecommendation());
@@ -56,36 +54,39 @@ public class ReportServiceImpl implements ReportService {
         report.setReportState(reportDto.getReportState());
 
         Animal animal = new Animal();
-        animal.setIdAnimal(reportDto.getAnimalDto().getIdAnimal());
+        animal.setIdAnimal(reportDto.getIdAnimal());
         report.setAnimal(animal);
 
-        Diagnosis diagnosis = new Diagnosis();
-        diagnosis.setIdDiagnosis(reportDto.getDiagnosisDto().getIdDiagnosis());
-        report.setDiagnosis(diagnosis);
+        if(reportDto.getIdDiagnosis() != null) {
+            Diagnosis diagnosis = new Diagnosis();
+            diagnosis.setIdDiagnosis(reportDto.getIdDiagnosis());
+            report.setDiagnosis(diagnosis);
+        }
 
-        Operation operation = new Operation();
-        operation.setIdOperation(reportDto.getOperationDto().getIdOperation());
-        report.setOperation(operation);
+        if(reportDto.getIdOperation() != null) {
+            Operation operation = new Operation();
+            operation.setIdOperation(reportDto.getIdOperation());
+            report.setOperation(operation);
+        }
 
         Set<Medicine> medicines = new HashSet<>();
-        reportDto.getMedicines().forEach(medicineDto -> {
+        reportDto.getSetOfIdMedicines().forEach(idMedicine -> {
             Medicine medicine = new Medicine();
-            medicine.setIdMedicine(medicineDto.getIdMedicine());
+            medicine.setIdMedicine(idMedicine);
             medicines.add(medicine);
         });
-        report.setMedicines(medicines);
+        report.getMedicines().addAll(medicines);
 
         //Consumables
 
         User user = loginService.findByUsername(veterinaryUsername);
         report.setVeterinary(user);
-        return reportRepository.save(report);*/
-        return null;
+        return reportRepository.save(report);
     }
 
     @Override
     public Report editDoneReport(DoneReportDto reportDto,int idReport, String veterinaryUsername) {
-        /*Report report = new Report();
+        Report report = new Report();
         report.setIdReport(idReport);
         report.setTextDiagnosis(reportDto.getTextDiagnosis());
         report.setTextRecommendation(reportDto.getTextRecommendation());
@@ -93,31 +94,33 @@ public class ReportServiceImpl implements ReportService {
         report.setReportState(reportDto.getReportState());
 
         Animal animal = new Animal();
-        animal.setIdAnimal(reportDto.getAnimalDto().getIdAnimal());
+        animal.setIdAnimal(reportDto.getIdAnimal());
         report.setAnimal(animal);
 
-        Diagnosis diagnosis = new Diagnosis();
-        diagnosis.setIdDiagnosis(reportDto.getDiagnosisDto().getIdDiagnosis());
-        report.setDiagnosis(diagnosis);
+        if(reportDto.getIdDiagnosis() != null) {
+            Diagnosis diagnosis = new Diagnosis();
+            diagnosis.setIdDiagnosis(reportDto.getIdDiagnosis());
+            report.setDiagnosis(diagnosis);
+        }
 
-        Operation operation = new Operation();
-        operation.setIdOperation(reportDto.getOperationDto().getIdOperation());
-        report.setOperation(operation);
+        if(reportDto.getIdOperation() != null) {
+            Operation operation = new Operation();
+            operation.setIdOperation(reportDto.getIdOperation());
+            report.setOperation(operation);
+        }
 
-        //Tady to možná bude trochu jinak
         Set<Medicine> medicines = new HashSet<>();
-        reportDto.getMedicines().forEach(medicineDto -> {
+        reportDto.getSetOfIdMedicines().forEach(idMedicine -> {
             Medicine medicine = new Medicine();
-            medicine.setIdMedicine(medicineDto.getIdMedicine());
+            medicine.setIdMedicine(idMedicine);
             medicines.add(medicine);
         });
-        report.setMedicines(medicines);
+        report.getMedicines().addAll(medicines);
 
         //Consumables
 
         User user = loginService.findByUsername(veterinaryUsername);
         report.setVeterinary(user);
-        return reportRepository.save(report);*/
-        return null;
+        return reportRepository.save(report);
     }
 }
