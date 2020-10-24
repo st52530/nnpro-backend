@@ -2,6 +2,7 @@ package cz.upce.vetalmael.service.implementation;
 
 import cz.upce.vetalmael.model.Clinic;
 
+import cz.upce.vetalmael.model.Role;
 import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.EmployeeDto;
 import cz.upce.vetalmael.repository.UserRepository;
@@ -23,31 +24,37 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public User addEmployee(EmployeeDto employeeDto, int idClinic) {
-        User employee = new User();
-        employee.setEmail(employeeDto.getEmail());
-        employee.setUsername(employeeDto.getUsername());
-        employee.setFullName(employeeDto.getFullName());
-        employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
-        employee.setRoles(employeeDto.getRole().toString());
-        Clinic clinic = new Clinic();
-        clinic.setIdClinic(idClinic);
-        employee.setWorkplace(clinic);
-        return userRepository.save(employee);
+        if (employeeDto.getRole() != Role.ADMINISTRATOR || employeeDto.getRole() != Role.CLIENT) {
+            User employee = new User();
+            employee.setEmail(employeeDto.getEmail());
+            employee.setUsername(employeeDto.getUsername());
+            employee.setFullName(employeeDto.getFullName());
+            employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
+            employee.setRoles(employeeDto.getRole().toString());
+            Clinic clinic = new Clinic();
+            clinic.setIdClinic(idClinic);
+            employee.setWorkplace(clinic);
+            return userRepository.save(employee);
+        }
+        return null;
     }
 
     @Override
     public User editEmployee(EmployeeDto employeeDto, int idEmployee, int idClinic) {
-        User employee = new User();
-        employee.setIdUser(idEmployee);
-        employee.setEmail(employeeDto.getEmail());
-        employee.setUsername(employeeDto.getUsername());
-        employee.setFullName(employeeDto.getFullName());
-        employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
-        employee.setRoles(employeeDto.getRole().toString());
-        Clinic clinic = new Clinic();
-        clinic.setIdClinic(idClinic);
-        employee.setWorkplace(clinic);
-        return userRepository.save(employee);
+        if (employeeDto.getRole() != Role.ADMINISTRATOR || employeeDto.getRole() != Role.CLIENT) {
+            User employee = new User();
+            employee.setIdUser(idEmployee);
+            employee.setEmail(employeeDto.getEmail());
+            employee.setUsername(employeeDto.getUsername());
+            employee.setFullName(employeeDto.getFullName());
+            employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
+            employee.setRoles(employeeDto.getRole().toString());
+            Clinic clinic = new Clinic();
+            clinic.setIdClinic(idClinic);
+            employee.setWorkplace(clinic);
+            return userRepository.save(employee);
+        }
+        return null;
 
     }
 
