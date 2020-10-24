@@ -6,7 +6,7 @@ import cz.upce.vetalmael.model.dto.DiagnosisDto;
 public interface DiagnosisService {
 
     Diagnosis addDiagnosis(DiagnosisDto diagnosisDto);
-    Diagnosis editDiagnosis(DiagnosisDto diagnosisDto);
+    Diagnosis editDiagnosis(DiagnosisDto diagnosisDto, int idDiagnosis);
     void removeDiagnosis(int idDiagnosis);
 
 }

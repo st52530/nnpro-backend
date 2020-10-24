@@ -28,9 +28,9 @@ public class OperationController {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping
-    public ResponseEntity<Operation> editAnimal(@RequestBody OperationDto operationDto) {
-        return ResponseEntity.ok(operationService.editOperation(operationDto));
+    @PutMapping("/{idOperation}")
+    public ResponseEntity<Operation> editAnimal(@RequestBody OperationDto operationDto,@PathVariable int idOperation) {
+        return ResponseEntity.ok(operationService.editOperation(operationDto, idOperation));
     }
 
     @DeleteMapping("/{idOperation}")

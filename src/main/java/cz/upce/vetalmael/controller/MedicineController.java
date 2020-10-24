@@ -31,9 +31,9 @@ public class MedicineController {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping
-    public ResponseEntity<Medicine> editMedicine(@RequestBody MedicineDto medicineDto) {
-        return ResponseEntity.ok(medicineService.editMedicine(medicineDto));
+    @PutMapping("/{idMedicine}")
+    public ResponseEntity<Medicine> editMedicine(@RequestBody MedicineDto medicineDto, @PathVariable int idMedicine) {
+        return ResponseEntity.ok(medicineService.editMedicine(medicineDto, idMedicine));
     }
 
     @DeleteMapping("/{idMedicine}")

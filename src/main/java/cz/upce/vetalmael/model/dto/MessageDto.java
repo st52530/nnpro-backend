@@ -9,7 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MessageDto {
 
-    private int idMessage;
     private String text;
-    private AnimalDto animal;
 }

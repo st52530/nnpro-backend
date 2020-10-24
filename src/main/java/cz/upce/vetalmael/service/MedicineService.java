@@ -6,6 +6,6 @@ import cz.upce.vetalmael.model.dto.MedicineDto;
 public interface MedicineService {
 
     Medicine addMedicine(MedicineDto medicineDto);
-    Medicine editMedicine(MedicineDto medicineDto);
+    Medicine editMedicine(MedicineDto medicineDto, int idMedicine);
     void removeMedicine(int idMedicine);
 }

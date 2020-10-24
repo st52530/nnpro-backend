@@ -24,8 +24,9 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
-    public Medicine editMedicine(MedicineDto medicineDto) {
+    public Medicine editMedicine(MedicineDto medicineDto, int idMedicine) {
         Medicine medicine = modelMapper.map(medicineDto, Medicine.class);
+        medicine.setIdMedicine(idMedicine);
         return medicineRepository.save(medicine);
     }
 

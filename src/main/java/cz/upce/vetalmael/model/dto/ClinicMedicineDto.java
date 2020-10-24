@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClinicMedicineDto {
 
-    private int idClinicMedicine;
     private int quantityInStock;
-    private ClinicDto clinicDto;
-    private MedicineDto medicineDto;
 
 }

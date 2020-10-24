@@ -20,11 +20,11 @@ public class MessageServiceImpl implements MessageService {
     private LoginService loginService;
 
     @Override
-    public Message sendMessage(MessageDto messageDto, String senderUsername) {
+    public Message sendMessage(MessageDto messageDto, int idAnimal, String senderUsername) {
         Message message = new Message();
         message.setText(messageDto.getText());
         Animal animal = new Animal();
-        animal.setIdAnimal(messageDto.getAnimal().getIdAnimal());
+        animal.setIdAnimal(idAnimal);
         message.setAnimal(animal);
         User sender = loginService.findByUsername(senderUsername);
         message.setSender(sender);

@@ -5,9 +5,9 @@ import cz.upce.vetalmael.model.dto.AnimalDto;
 
 public interface AnimalService {
 
-    Animal addAnimal(AnimalDto animalDto);
+    Animal addAnimal(AnimalDto animalDto, int idUser);
 
-    Animal editAnimal(AnimalDto animalDto);
+    Animal editAnimal(AnimalDto animalDto, int idAnimal, int idUser);
 
     void removeAnimal(int idAnimal);
 }

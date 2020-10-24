@@ -24,8 +24,9 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public Operation editOperation(OperationDto operationDto) {
+    public Operation editOperation(OperationDto operationDto, int idOperation) {
         Operation operation = modelMapper.map(operationDto,Operation.class);
+        operation.setIdOperation(idOperation);
         return operationRepository.save(operation);
     }
 

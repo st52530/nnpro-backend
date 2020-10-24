@@ -16,28 +16,28 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationRepository reservationRepository;
 
     @Override
-    public Reservation addReservation(ReservationDto reservationDto) {
+    public Reservation addReservation(ReservationDto reservationDto, int idClinic, int idClient) {
         Reservation reservation = new Reservation();
         reservation.setDate(reservationDto.getDate());
         User client = new User();
-        client.setIdUser(reservationDto.getClientDto().getIdUser());
+        client.setIdUser(idClient);
         reservation.setClient(client);
         Clinic clinic = new Clinic();
-        clinic.setIdClinic(reservationDto.getClinicDto().getIdClinic());
+        clinic.setIdClinic(idClinic);
         reservation.setClinic(clinic);
         return reservationRepository.save(reservation);
     }
 
     @Override
-    public Reservation editReservation(ReservationDto reservationDto) {
+    public Reservation editReservation(ReservationDto reservationDto, int idReservation, int idClinic, int idClient) {
         Reservation reservation = new Reservation();
-        reservation.setIdReservation(reservationDto.getIdReservation());
+        reservation.setIdReservation(idReservation);
         reservation.setDate(reservationDto.getDate());
         User client = new User();
-        client.setIdUser(reservationDto.getClientDto().getIdUser());
+        client.setIdUser(idClient);
         reservation.setClient(client);
         Clinic clinic = new Clinic();
-        clinic.setIdClinic(reservationDto.getClinicDto().getIdClinic());
+        clinic.setIdClinic(idClinic);
         reservation.setClinic(clinic);
         return reservationRepository.save(reservation);
     }

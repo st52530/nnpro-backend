@@ -30,9 +30,9 @@ public class DiagnosisController {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping
-    public ResponseEntity<Diagnosis> editAnimal(@RequestBody DiagnosisDto diagnosisDto) {
-        return ResponseEntity.ok(diagnosisService.editDiagnosis(diagnosisDto));
+    @PutMapping("/{idDiagnosis}")
+    public ResponseEntity<Diagnosis> editAnimal(@RequestBody DiagnosisDto diagnosisDto, @PathVariable int idDiagnosis) {
+        return ResponseEntity.ok(diagnosisService.editDiagnosis(diagnosisDto, idDiagnosis));
     }
 
     @DeleteMapping("/{idDiagnosis}")

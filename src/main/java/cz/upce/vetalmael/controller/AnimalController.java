@@ -14,7 +14,6 @@ import javax.transaction.Transactional;
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
-@RequestMapping("/animal")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class AnimalController {
 
@@ -22,15 +21,15 @@ public class AnimalController {
     private AnimalService animalService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping
-    public ResponseEntity<Animal> addAnimal(@RequestBody AnimalDto animalDto) {
-        return ResponseEntity.ok(animalService.addAnimal(animalDto));
+    @PostMapping("/user/{idUser}/animal")
+    public ResponseEntity<Animal> addAnimal(@RequestBody AnimalDto animalDto, @PathVariable int idUser) {
+        return ResponseEntity.ok(animalService.addAnimal(animalDto, idUser));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping
-    public ResponseEntity<Animal> editAnimal(@RequestBody AnimalDto animalDto) {
-        return ResponseEntity.ok(animalService.editAnimal(animalDto));
+    @PutMapping("/user/{idUser}/animal/{idAnimal}")
+    public ResponseEntity<Animal> editAnimal(@RequestBody AnimalDto animalDto, @PathVariable int idAnimal, @PathVariable int idUser) {
+        return ResponseEntity.ok(animalService.editAnimal(animalDto, idAnimal, idUser));
     }
 
     @DeleteMapping("/{idAnimal}")

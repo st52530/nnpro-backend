@@ -10,8 +10,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationDto {
-    private int idReservation;
+
     private Date date;
-    private ClientDto clientDto;
-    private ClinicDto clinicDto;
 }

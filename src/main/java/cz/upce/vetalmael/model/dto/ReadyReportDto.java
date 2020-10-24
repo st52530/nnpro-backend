@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReadyReportDto {
 
-    private int idReport;
     private String textDescription;
     private AnimalDto animalDto;
     private final ReportState reportState = ReportState.READY;

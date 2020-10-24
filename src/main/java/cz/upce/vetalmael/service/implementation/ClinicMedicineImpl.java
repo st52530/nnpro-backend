@@ -16,22 +16,22 @@ public class ClinicMedicineImpl implements ClinicMedicineService {
     private ClinicMedicineRepository clinicMedicineRepository;
 
     @Override
-    public ClinicMedicine addClinicMedicine(ClinicMedicineDto clinicMedicineDto) {
+    public ClinicMedicine addClinicMedicine(ClinicMedicineDto clinicMedicineDto, int idClinic, int idMedicine) {
         ClinicMedicine clinicMedicine = new ClinicMedicine();
         clinicMedicine.setQuantityInStock(clinicMedicineDto.getQuantityInStock());
         Clinic clinic = new Clinic();
-        clinic.setIdClinic(clinicMedicineDto.getClinicDto().getIdClinic());
+        clinic.setIdClinic(idClinic);
         Medicine medicine = new Medicine();
-        medicine.setIdMedicine(clinicMedicineDto.getMedicineDto().getIdMedicine());
+        medicine.setIdMedicine(idMedicine);
         clinicMedicine.setClinic(clinic);
         clinicMedicine.setMedicine(medicine);
         return clinicMedicineRepository.save(clinicMedicine);
     }
 
     @Override
-    public ClinicMedicine addQuantityInStock(ClinicMedicineDto clinicMedicineDto) {
+    public ClinicMedicine addQuantityInStock(ClinicMedicineDto clinicMedicineDto, int idClinicMedicine) {
         ClinicMedicine clinicMedicine = new ClinicMedicine();
-        clinicMedicine.setIdClinicMedicine(clinicMedicineDto.getIdClinicMedicine());
+        clinicMedicine.setIdClinicMedicine(idClinicMedicine);
         clinicMedicine.setQuantityInStock(0);
         return clinicMedicineRepository.save(clinicMedicine);
     }

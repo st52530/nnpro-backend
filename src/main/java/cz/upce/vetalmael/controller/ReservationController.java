@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
-@RequestMapping("/reservation")
+@RequestMapping
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class ReservationController {
 
@@ -25,15 +25,15 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping
-    public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDto reservationDto) {
-        return ResponseEntity.ok(reservationService.addReservation(reservationDto));
+    @PostMapping("/clinic/{idClinic}/client/{idClient}/reservation")
+    public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDto reservationDto, @PathVariable int idClinic, @PathVariable int idClient) {
+        return ResponseEntity.ok(reservationService.addReservation(reservationDto, idClinic, idClient));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping
-    public ResponseEntity<Reservation> editReservation(@RequestBody ReservationDto reservationDto) {
-        return ResponseEntity.ok(reservationService.editReservation(reservationDto));
+    @PutMapping("/clinic/{idClinic}/client/{idClient}/reservation/{idReservation}")
+    public ResponseEntity<Reservation> editReservation(@RequestBody ReservationDto reservationDto,@PathVariable int idClinic, @PathVariable int idClient, @PathVariable int idReservation) {
+        return ResponseEntity.ok(reservationService.editReservation(reservationDto, idReservation, idClinic, idClient));
     }
 
     @DeleteMapping("/{idReservation}")

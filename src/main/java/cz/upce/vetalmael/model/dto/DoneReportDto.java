@@ -12,15 +12,14 @@ import java.util.Set;
 @AllArgsConstructor
 public class DoneReportDto {
 
-    private int idReport;
     private String textDescription;
     private String textDiagnosis;
     private String textRecommendation;
-    private AnimalDto animalDto;
+    //private AnimalDto animalDto;
     private final ReportState reportState = ReportState.DONE;
-    private DiagnosisDto diagnosisDto;
-    private OperationDto operationDto;
-    private Set<MedicineDto> medicines;
+    //private DiagnosisDto diagnosisDto;
+    //private OperationDto operationDto;
+    //private Set<MedicineDto> medicines;
     //Consumables
 }
 

@@ -7,7 +7,7 @@ import cz.upce.vetalmael.model.dto.ReadyReportDto;
 public interface ReportService {
 
     Report addReadyReport(ReadyReportDto reportDto);
-    Report editReadyReport(ReadyReportDto reportDto);
+    Report editReadyReport(ReadyReportDto reportDto, int idReport);
     Report addDoneReport(DoneReportDto reportDto, String veterinaryUsername);
-    Report editDoneReport(DoneReportDto reportDto, String veterinaryUsername);
+    Report editDoneReport(DoneReportDto reportDto, int idReport, String veterinaryUsername);
 }

@@ -8,17 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
-@RequestMapping("/message")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class MessageController {
 
@@ -26,10 +22,10 @@ public class MessageController {
     private MessageService messageService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping
-    public ResponseEntity<Message> sendMessage(@RequestBody MessageDto messageDto) {
+    @PostMapping("/animal/{idAnimal}/message")
+    public ResponseEntity<Message> sendMessage(@RequestBody MessageDto messageDto, @PathVariable int idAnimal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getPrincipal().toString();
-        return ResponseEntity.ok(messageService.sendMessage(messageDto,username));
+        return ResponseEntity.ok(messageService.sendMessage(messageDto,idAnimal,username));
     }
 }

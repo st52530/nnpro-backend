@@ -23,30 +23,32 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report addReadyReport(ReadyReportDto reportDto) {
-        Report report = new Report();
+        /*Report report = new Report();
         report.setTextDescription(reportDto.getTextDescription());
         report.setReportState(reportDto.getReportState());
         Animal animal = new Animal();
         animal.setIdAnimal(reportDto.getAnimalDto().getIdAnimal());
         report.setAnimal(animal);
-        return reportRepository.save(report);
+        return reportRepository.save(report);*/
+        return null;
     }
 
     @Override
-    public Report editReadyReport(ReadyReportDto reportDto) {
-        Report report = new Report();
-        report.setIdReport(reportDto.getIdReport());
+    public Report editReadyReport(ReadyReportDto reportDto, int idReport) {
+        /*Report report = new Report();
+        report.setIdReport(idReport);
         report.setTextDescription(reportDto.getTextDescription());
         report.setReportState(reportDto.getReportState());
         Animal animal = new Animal();
         animal.setIdAnimal(reportDto.getAnimalDto().getIdAnimal());
         report.setAnimal(animal);
-        return reportRepository.save(report);
+        return reportRepository.save(report);*/
+        return null;
     }
 
     @Override
     public Report addDoneReport(DoneReportDto reportDto, String veterinaryUsername) {
-        Report report = new Report();
+        /*Report report = new Report();
 
         report.setTextDiagnosis(reportDto.getTextDiagnosis());
         report.setTextRecommendation(reportDto.getTextRecommendation());
@@ -77,13 +79,14 @@ public class ReportServiceImpl implements ReportService {
 
         User user = loginService.findByUsername(veterinaryUsername);
         report.setVeterinary(user);
-        return reportRepository.save(report);
+        return reportRepository.save(report);*/
+        return null;
     }
 
     @Override
-    public Report editDoneReport(DoneReportDto reportDto, String veterinaryUsername) {
-        Report report = new Report();
-        report.setIdReport(reportDto.getIdReport());
+    public Report editDoneReport(DoneReportDto reportDto,int idReport, String veterinaryUsername) {
+        /*Report report = new Report();
+        report.setIdReport(idReport);
         report.setTextDiagnosis(reportDto.getTextDiagnosis());
         report.setTextRecommendation(reportDto.getTextRecommendation());
         report.setTextDescription(reportDto.getTextDescription());
@@ -114,6 +117,7 @@ public class ReportServiceImpl implements ReportService {
 
         User user = loginService.findByUsername(veterinaryUsername);
         report.setVeterinary(user);
-        return reportRepository.save(report);
+        return reportRepository.save(report);*/
+        return null;
     }
 }

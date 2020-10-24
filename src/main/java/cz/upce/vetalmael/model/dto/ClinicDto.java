@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClinicDto {
 
-    private int idClinic;
     private String name;
     private String address;
 

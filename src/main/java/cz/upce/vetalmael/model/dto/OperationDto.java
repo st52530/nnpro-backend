@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OperationDto {
 
-    private int idOperation;
     private String name;
     private double price;
     private String type;

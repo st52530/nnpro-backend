@@ -44,15 +44,15 @@ public class ClinicController {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/medicine")
-    public ResponseEntity<ClinicMedicine> addMedicineToClinic(@RequestBody ClinicMedicineDto clinicMedicineDto) {
-        return ResponseEntity.ok(clinicMedicineService.addClinicMedicine(clinicMedicineDto));
+    @PostMapping("/{idClinic}/medicine/{idMedicine}")
+    public ResponseEntity<ClinicMedicine> addMedicineToClinic(@RequestBody ClinicMedicineDto clinicMedicineDto, @PathVariable int idClinic, @PathVariable int idMedicine) {
+        return ResponseEntity.ok(clinicMedicineService.addClinicMedicine(clinicMedicineDto, idClinic, idMedicine));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping("/medicine")
-    public ResponseEntity<ClinicMedicine> addMedicineQuantityInStock(@RequestBody ClinicMedicineDto clinicMedicineDto) {
-        return ResponseEntity.ok(clinicMedicineService.addQuantityInStock(clinicMedicineDto));
+    @PutMapping("/clinic-medicine/{idClinicMedicine}")
+    public ResponseEntity<ClinicMedicine> addMedicineQuantityInStoctk(@RequestBody ClinicMedicineDto clinicMedicineDto, @PathVariable int idClinicMedicine){
+        return ResponseEntity.ok(clinicMedicineService.addQuantityInStock(clinicMedicineDto, idClinicMedicine));
     }
 
     @DeleteMapping("/medicine/{idClinicMedicine}")

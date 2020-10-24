@@ -14,7 +14,6 @@ import javax.transaction.Transactional;
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
-@RequestMapping("/employee")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class EmployeeController {
 
@@ -22,18 +21,18 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping
-    public ResponseEntity<User> addEmployee(@RequestBody EmployeeDto employeeDto) {
-        return ResponseEntity.ok(employeeService.addEmployee(employeeDto));
+    @PostMapping("/clinic/{idClinic}/employee")
+    public ResponseEntity<User> addEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable int idClinic) {
+        return ResponseEntity.ok(employeeService.addEmployee(employeeDto, idClinic));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping
-    public ResponseEntity<User> editEmployee(@RequestBody EmployeeDto employeeDto) {
-        return ResponseEntity.ok(employeeService.editEmployee(employeeDto));
+    @PutMapping("/clinic/{idClinic}/employee/{idEmployee}")
+    public ResponseEntity<User> editEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable int idClinic, @PathVariable int idEmployee) {
+        return ResponseEntity.ok(employeeService.editEmployee(employeeDto,idEmployee, idClinic));
     }
 
-    @DeleteMapping("/{idEmployee}")
+    @DeleteMapping("/employee/{idEmployee}")
     public ResponseEntity<?> removeEmployee(@PathVariable int idEmployee) {
         try {
             employeeService.removeEmployee(idEmployee);

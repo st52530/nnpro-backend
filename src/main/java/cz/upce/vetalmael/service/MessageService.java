@@ -5,5 +5,5 @@ import cz.upce.vetalmael.model.dto.MessageDto;
 
 public interface MessageService {
 
-    Message sendMessage(MessageDto messageDto, String senderUsername);
+    Message sendMessage(MessageDto messageDto,int idAnimal, String senderUsername);
 }

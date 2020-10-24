@@ -24,8 +24,9 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public Diagnosis editDiagnosis(DiagnosisDto diagnosisDto) {
+    public Diagnosis editDiagnosis(DiagnosisDto diagnosisDto, int idDiagnosis) {
         Diagnosis diagnosis = modelMapper.map(diagnosisDto, Diagnosis.class);
+        diagnosis.setIdDiagnosis(idDiagnosis);
         return diagnosisRepository.save(diagnosis);
     }
 
