@@ -9,6 +9,7 @@ import cz.upce.vetalmael.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service(value = "employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
@@ -21,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void addEmployee(EmployeeDto employeeDto) {
+    public User addEmployee(EmployeeDto employeeDto, int idClinic) {
         User employee = new User();
         employee.setEmail(employeeDto.getEmail());
         employee.setUsername(employeeDto.getUsername());
@@ -29,24 +30,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
         employee.setRoles(employeeDto.getRole().toString());
         Clinic clinic = new Clinic();
-        clinic.setIdClinic(employeeDto.getClinicDto().getIdClinic());
+        clinic.setIdClinic(idClinic);
         employee.setWorkplace(clinic);
-        userRepository.save(employee);
+        return userRepository.save(employee);
     }
 
     @Override
-    public void editEmployee(EmployeeDto employeeDto) {
+    public User editEmployee(EmployeeDto employeeDto, int idEmployee, int idClinic) {
         User employee = new User();
-        employee.setIdUser(employeeDto.getIdEmployee());
+        employee.setIdUser(idEmployee);
         employee.setEmail(employeeDto.getEmail());
         employee.setUsername(employeeDto.getUsername());
         employee.setFullName(employeeDto.getFullName());
         employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
         employee.setRoles(employeeDto.getRole().toString());
         Clinic clinic = new Clinic();
-        clinic.setIdClinic(employeeDto.getClinicDto().getIdClinic());
+        clinic.setIdClinic(idClinic);
         employee.setWorkplace(clinic);
-        userRepository.save(employee);
+        return userRepository.save(employee);
 
     }
 

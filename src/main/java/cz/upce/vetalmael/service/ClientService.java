@@ -7,6 +7,6 @@ import cz.upce.vetalmael.model.dto.SingUpDto;
 
 public interface ClientService {
 
-    void addClient(SingUpDto user);
+    User addClient(SingUpDto user);
 
 }

@@ -1,5 +1,6 @@
 package cz.upce.vetalmael.security;
 
+import cz.upce.vetalmael.model.Role;
 import cz.upce.vetalmael.service.implementation.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +36,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/swagger"
                 ).permitAll()
-                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.POST, SIGN_IN_URL).permitAll()
+                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // this disables session creation on Spring Security

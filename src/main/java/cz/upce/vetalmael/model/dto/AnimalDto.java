@@ -9,7 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AnimalDto {
 
-    private int idAnimal;
     private String name;
-    private ClientDto owner;
 }

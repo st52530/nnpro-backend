@@ -1,10 +1,11 @@
 package cz.upce.vetalmael.service;
 
+import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.EmployeeDto;
 
 public interface EmployeeService {
 
-    void addEmployee(EmployeeDto employeeDto);
-    void editEmployee(EmployeeDto employeeDto);
+    User addEmployee(EmployeeDto employeeDto, int idClinic);
+    User editEmployee(EmployeeDto employeeDto,int idEmployee, int idClinic);
     void removeEmployee(int idEmployee);
 }

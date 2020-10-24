@@ -1,36 +1,44 @@
 package cz.upce.vetalmael.controller;
 
+import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.dto.AnimalDto;
-import cz.upce.vetalmael.model.dto.SingUpDto;
 import cz.upce.vetalmael.service.AnimalService;
-import cz.upce.vetalmael.service.ClientService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
+import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
+
 @RestController
-@RequestMapping("/animale")
+@SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class AnimalController {
 
     @Autowired
     private AnimalService animalService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/add-animal")
-    public void addAnimal(@RequestBody AnimalDto animalDto) {
-        animalService.addAnimal(animalDto);
+    @PostMapping("/user/{idUser}/animal")
+    public ResponseEntity<Animal> addAnimal(@RequestBody AnimalDto animalDto, @PathVariable int idUser) {
+        return ResponseEntity.ok(animalService.addAnimal(animalDto, idUser));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/edit-animal")
-    public void editAnimal(@RequestBody AnimalDto animalDto) {
-        animalService.editAnimal(animalDto);
+    @PutMapping("/user/{idUser}/animal/{idAnimal}")
+    public ResponseEntity<Animal> editAnimal(@RequestBody AnimalDto animalDto, @PathVariable int idAnimal, @PathVariable int idUser) {
+        return ResponseEntity.ok(animalService.editAnimal(animalDto, idAnimal, idUser));
     }
 
-    @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/remove-animal/{idAnimal}")
-    public void removeAnimal(@PathVariable int idAnimal) {
-        animalService.removeAnimal(idAnimal);
+    @DeleteMapping("/{idAnimal}")
+    public ResponseEntity<?> removeAnimal(@PathVariable int idAnimal) {
+        try {
+            animalService.removeAnimal(idAnimal);
+            return ResponseEntity.noContent().build();
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientDto {
+public class OperationDto {
 
-    private int idUser;
+    private String name;
+    private double price;
+    private String type;
 
 }
