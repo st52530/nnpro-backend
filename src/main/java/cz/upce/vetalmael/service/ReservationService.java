@@ -6,6 +6,6 @@ import cz.upce.vetalmael.model.dto.ReservationDto;
 public interface ReservationService {
 
     Reservation addReservation(ReservationDto reservationDto, int idClinic, int idClient);
-    Reservation editReservation(ReservationDto reservationDto, int idReservation, int idClinic, int idClient);
+    Reservation editReservation(ReservationDto reservationDto, int idReservation);
     void removeReservation(int idReservation);
 }

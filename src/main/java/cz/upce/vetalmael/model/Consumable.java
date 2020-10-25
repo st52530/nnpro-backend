@@ -13,15 +13,15 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "medicine")
+@Table(name = "consumable")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Medicine implements Serializable {
+public class Consumable implements Serializable {
 
     @Id
     @GeneratedValue
-    private int idMedicine;
+    private int idConsumable;
 
     @Column(nullable = false)
     private String name;
@@ -29,13 +29,16 @@ public class Medicine implements Serializable {
     @Column(nullable = false)
     private String code;
 
+    @Column(nullable = false)
+    private double price;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "medicine", cascade = CascadeType.PERSIST)
-    private List<ClinicMedicine> clinicMedicines = new ArrayList<>();
+    @OneToMany(mappedBy = "consumable", cascade = CascadeType.PERSIST)
+    private List<ClinicConsumable> clinicConsumables = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "report_medicine",
-            joinColumns = { @JoinColumn(name = "medicine_id") },
+    @JoinTable(name = "report_consumable",
+            joinColumns = { @JoinColumn(name = "consumable_id") },
             inverseJoinColumns = { @JoinColumn(name = "report_id") })
     private Set<Report> reports = new HashSet<>();
 }

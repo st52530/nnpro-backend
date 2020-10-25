@@ -77,7 +77,13 @@ public class ReportServiceImpl implements ReportService {
         });
         report.getMedicines().addAll(medicines);
 
-        //Consumables
+        Set<Consumable> consumables = new HashSet<>();
+        reportDto.getSetOfIdConsumables().forEach(idConsumable -> {
+            Consumable consumable = new Consumable();
+            consumable.setIdConsumable(idConsumable);
+            consumables.add(consumable);
+        });
+        report.getConsumables().addAll(consumables);
 
         User user = loginService.findByUsername(veterinaryUsername);
         report.setVeterinary(user);
@@ -117,7 +123,13 @@ public class ReportServiceImpl implements ReportService {
         });
         report.getMedicines().addAll(medicines);
 
-        //Consumables
+        Set<Consumable> consumables = new HashSet<>();
+        reportDto.getSetOfIdConsumables().forEach(idConsumable -> {
+            Consumable consumable = new Consumable();
+            consumable.setIdConsumable(idConsumable);
+            consumables.add(consumable);
+        });
+        report.getConsumables().addAll(consumables);
 
         User user = loginService.findByUsername(veterinaryUsername);
         report.setVeterinary(user);

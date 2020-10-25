@@ -20,7 +20,7 @@ public class DoneReportDto {
     private Integer idDiagnosis;
     private Integer idOperation;
     private Set<Integer> setOfIdMedicines;
-    //Consumables
+    private Set<Integer> setOfIdConsumables;
 }
 
 

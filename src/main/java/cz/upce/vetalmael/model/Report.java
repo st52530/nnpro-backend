@@ -57,5 +57,8 @@ public class Report implements Serializable {
     @ManyToMany(mappedBy = "reports")
     private Set<Medicine> medicines = new HashSet<>();
 
+    @ManyToMany(mappedBy = "reports")
+    private Set<Consumable> consumables = new HashSet<>();
+
     //Consumables
 }
