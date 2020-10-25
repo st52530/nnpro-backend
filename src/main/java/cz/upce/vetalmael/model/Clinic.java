@@ -38,4 +38,8 @@ public class Clinic implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClinicMedicine> clinicMedicines = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ClinicConsumable> clinicConsumables = new ArrayList<>();
 }

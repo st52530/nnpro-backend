@@ -29,16 +29,10 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation editReservation(ReservationDto reservationDto, int idReservation, int idClinic, int idClient) {
+    public Reservation editReservation(ReservationDto reservationDto, int idReservation) {
         Reservation reservation = new Reservation();
         reservation.setIdReservation(idReservation);
         reservation.setDate(reservationDto.getDate());
-        User client = new User();
-        client.setIdUser(idClient);
-        reservation.setClient(client);
-        Clinic clinic = new Clinic();
-        clinic.setIdClinic(idClinic);
-        reservation.setClinic(clinic);
         return reservationRepository.save(reservation);
     }
 

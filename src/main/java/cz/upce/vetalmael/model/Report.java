@@ -54,8 +54,16 @@ public class Report implements Serializable {
     @JoinColumn(name="operation_id")
     private Operation operation;
 
-    @ManyToMany(mappedBy = "reports")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "report_medicine",
+            joinColumns = { @JoinColumn(name = "report_id") },
+            inverseJoinColumns = { @JoinColumn(name = "medicine_id") })
     private Set<Medicine> medicines = new HashSet<>();
 
-    //Consumables
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "report_consumable",
+            joinColumns = { @JoinColumn(name = "report_id") },
+            inverseJoinColumns = { @JoinColumn(name = "consumable_id") })
+    private Set<Consumable> consumables = new HashSet<>();
+
 }

@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReadyReportDto {
+public class ClinicConsumableDto {
 
-    private String textDescription;
-    private int idAnimal;
+    private int quantityInStock;
 }

@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReadyReportDto {
+public class ConsumableDto {
 
-    private String textDescription;
-    private int idAnimal;
+    private String name;
+    private String code;
+    private double price;
 }

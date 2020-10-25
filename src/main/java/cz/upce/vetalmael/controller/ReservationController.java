@@ -31,9 +31,9 @@ public class ReservationController {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping("/clinic/{idClinic}/client/{idClient}/reservation/{idReservation}")
-    public ResponseEntity<Reservation> editReservation(@RequestBody ReservationDto reservationDto,@PathVariable int idClinic, @PathVariable int idClient, @PathVariable int idReservation) {
-        return ResponseEntity.ok(reservationService.editReservation(reservationDto, idReservation, idClinic, idClient));
+    @PutMapping("/reservation/{idReservation}")
+    public ResponseEntity<Reservation> editReservation(@RequestBody ReservationDto reservationDto, @PathVariable int idReservation) {
+        return ResponseEntity.ok(reservationService.editReservation(reservationDto, idReservation));
     }
 
     @DeleteMapping("/{idReservation}")

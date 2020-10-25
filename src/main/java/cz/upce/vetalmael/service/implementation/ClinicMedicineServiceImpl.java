@@ -9,8 +9,8 @@ import cz.upce.vetalmael.service.ClinicMedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service(value = "clinicMedicine")
-public class ClinicMedicineImpl implements ClinicMedicineService {
+@Service(value = "clinicMedicineService")
+public class ClinicMedicineServiceImpl implements ClinicMedicineService {
 
     @Autowired
     private ClinicMedicineRepository clinicMedicineRepository;
@@ -32,7 +32,8 @@ public class ClinicMedicineImpl implements ClinicMedicineService {
     public ClinicMedicine addQuantityInStock(ClinicMedicineDto clinicMedicineDto, int idClinicMedicine) {
         ClinicMedicine clinicMedicine = new ClinicMedicine();
         clinicMedicine.setIdClinicMedicine(idClinicMedicine);
-        clinicMedicine.setQuantityInStock(0);
+        int quantityInStock = clinicMedicineRepository.getOne(idClinicMedicine).getQuantityInStock();
+        clinicMedicine.setQuantityInStock(clinicMedicineDto.getQuantityInStock()+quantityInStock);
         return clinicMedicineRepository.save(clinicMedicine);
     }
 

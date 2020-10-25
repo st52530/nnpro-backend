@@ -1,6 +1,5 @@
 package cz.upce.vetalmael.model.dto;
 
-import cz.upce.vetalmael.model.ReportState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,11 +15,10 @@ public class DoneReportDto {
     private String textDiagnosis;
     private String textRecommendation;
     private int idAnimal;
-    private final ReportState reportState = ReportState.DONE;
     private Integer idDiagnosis;
     private Integer idOperation;
     private Set<Integer> setOfIdMedicines;
-    //Consumables
+    private Set<Integer> setOfIdConsumables;
 }
 
 
