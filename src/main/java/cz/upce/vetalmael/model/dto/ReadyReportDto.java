@@ -1,6 +1,5 @@
 package cz.upce.vetalmael.model.dto;
 
-import cz.upce.vetalmael.model.ReportState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +11,4 @@ public class ReadyReportDto {
 
     private String textDescription;
     private int idAnimal;
-    private final ReportState reportState = ReportState.READY;
 }

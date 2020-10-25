@@ -3,6 +3,7 @@ package cz.upce.vetalmael.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -36,9 +37,8 @@ public class Consumable implements Serializable {
     @OneToMany(mappedBy = "consumable", cascade = CascadeType.PERSIST)
     private List<ClinicConsumable> clinicConsumables = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "report_consumable",
-            joinColumns = { @JoinColumn(name = "consumable_id") },
-            inverseJoinColumns = { @JoinColumn(name = "report_id") })
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    @ManyToMany(mappedBy = "consumables", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Report> reports = new HashSet<>();
 }
