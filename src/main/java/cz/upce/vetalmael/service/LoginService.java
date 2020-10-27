@@ -1,6 +1,5 @@
 package cz.upce.vetalmael.service;
 
-import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.LoggedUser;
 import cz.upce.vetalmael.model.dto.SignInDto;
 
