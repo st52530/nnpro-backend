@@ -1,8 +1,6 @@
 package cz.upce.vetalmael.controller;
 
-import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Diagnosis;
-import cz.upce.vetalmael.model.dto.AnimalDto;
 import cz.upce.vetalmael.model.dto.DiagnosisDto;
 import cz.upce.vetalmael.service.DiagnosisService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

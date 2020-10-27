@@ -60,7 +60,7 @@ public class ClinicController {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/{idClinic}/medicine/{idMedicine}")
+    @PostMapping("/{idClinic}/clinic-medicine/medicine/{idMedicine}")
     public ResponseEntity<ClinicMedicine> addMedicineToClinic(@RequestBody ClinicMedicineDto clinicMedicineDto, @PathVariable int idClinic, @PathVariable int idMedicine) {
         return ResponseEntity.ok(clinicMedicineService.addClinicMedicine(clinicMedicineDto, idClinic, idMedicine));
     }
@@ -82,7 +82,7 @@ public class ClinicController {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/{idClinic}/consumable/{idConsumable}")
+    @PostMapping("/{idClinic}/clinic-consumable/consumable/{idConsumable}")
     public ResponseEntity<ClinicConsumable> addConsumableToClinic(@RequestBody ClinicConsumableDto clinicConsumableDto, @PathVariable int idClinic, @PathVariable int idConsumable) {
         return ResponseEntity.ok(clinicConsumableService.addClinicConsumable(clinicConsumableDto, idClinic, idConsumable));
     }

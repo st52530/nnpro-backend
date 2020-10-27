@@ -1,9 +1,7 @@
 package cz.upce.vetalmael.controller;
 
 
-import cz.upce.vetalmael.model.ClinicMedicine;
 import cz.upce.vetalmael.model.Medicine;
-import cz.upce.vetalmael.model.dto.ClinicMedicineDto;
 import cz.upce.vetalmael.model.dto.MedicineDto;
 import cz.upce.vetalmael.service.MedicineService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

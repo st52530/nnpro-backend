@@ -15,7 +15,8 @@ import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
-@RestController("/reservations")
+@RestController
+@RequestMapping("/reservations")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class ReservationController {
 
