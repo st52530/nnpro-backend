@@ -29,10 +29,6 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserRepository userRepository;
-
-
     @Override
     public Optional<LoggedUser> login(SignInDto signInDto) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInDto.getUsername(), signInDto.getPassword(), new ArrayList<>()));
@@ -48,10 +44,5 @@ public class LoginServiceImpl implements LoginService {
             loggedUser = new LoggedUser(user, token);
         }
         return Optional.ofNullable(loggedUser);
-    }
-
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
     }
 }

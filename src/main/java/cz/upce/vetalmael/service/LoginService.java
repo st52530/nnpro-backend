@@ -10,5 +10,4 @@ public interface LoginService {
 
     Optional<LoggedUser> login(SignInDto user);
 
-    User findByUsername(String username);
 }

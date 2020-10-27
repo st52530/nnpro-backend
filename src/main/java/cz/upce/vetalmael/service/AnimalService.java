@@ -1,7 +1,11 @@
 package cz.upce.vetalmael.service;
 
 import cz.upce.vetalmael.model.Animal;
+import cz.upce.vetalmael.model.Message;
+import cz.upce.vetalmael.model.Report;
 import cz.upce.vetalmael.model.dto.AnimalDto;
+
+import java.util.List;
 
 public interface AnimalService {
 
@@ -10,4 +14,8 @@ public interface AnimalService {
     Animal editAnimal(AnimalDto animalDto, int idAnimal, int idUser);
 
     void removeAnimal(int idAnimal);
+
+    List<Message> getMessages(int idAnimal);
+
+    List<Report> getReports(int idAnimal);
 }
