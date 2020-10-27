@@ -20,7 +20,7 @@ import java.util.List;
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
-@RequestMapping("/clinic")
+@RequestMapping("/clinics")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class ClinicController {
 
@@ -49,7 +49,7 @@ public class ClinicController {
         }
     }
 
-    @GetMapping("s")
+    @GetMapping
     public ResponseEntity<List<Clinic>> getClinics(){
         return ResponseEntity.ok(clinicService.getClinics());
     }
@@ -71,7 +71,7 @@ public class ClinicController {
         return ResponseEntity.ok(clinicMedicineService.addQuantityInStock(clinicMedicineDto, idClinicMedicine));
     }
 
-    @DeleteMapping("/medicine/{idClinicMedicine}")
+    @DeleteMapping("/clinic-medicine/{idClinicMedicine}")
     public ResponseEntity<?> removeClinicMedicine(@PathVariable int idClinicMedicine) {
         try {
             clinicMedicineService.removeClinicMedicine(idClinicMedicine);
@@ -93,7 +93,7 @@ public class ClinicController {
         return ResponseEntity.ok(clinicConsumableService.addQuantityInStock(clinicConsumableDto, idClinicConsumable));
     }
 
-    @DeleteMapping("/consumable/{idClinicConsumable}")
+    @DeleteMapping("/clinic-consumable/{idClinicConsumable}")
     public ResponseEntity<?> removeClinicConsumable(@PathVariable int idClinicConsumable) {
         try {
             clinicConsumableService.removeClinicConsumable(idClinicConsumable);

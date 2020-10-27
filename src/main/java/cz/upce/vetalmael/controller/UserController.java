@@ -1,6 +1,5 @@
 package cz.upce.vetalmael.controller;
 
-import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.LoggedUser;
 import cz.upce.vetalmael.model.dto.SignInDto;
 import cz.upce.vetalmael.service.LoginService;
@@ -13,7 +12,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired

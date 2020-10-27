@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
-@RestController
+@RestController("/messages")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class MessageController {
 
@@ -22,7 +22,7 @@ public class MessageController {
     private MessageService messageService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/animal/{idAnimal}/message")
+    @PostMapping("/animal/{idAnimal}")
     public ResponseEntity<Message> sendMessage(@RequestBody MessageDto messageDto, @PathVariable int idAnimal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getPrincipal().toString();

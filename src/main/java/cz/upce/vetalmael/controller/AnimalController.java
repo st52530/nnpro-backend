@@ -17,7 +17,7 @@ import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
-@RestController
+@RestController("/animals")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class AnimalController {
 
@@ -25,13 +25,13 @@ public class AnimalController {
     private AnimalService animalService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/user/{idUser}/animal")
+    @PostMapping("/user/{idUser}")
     public ResponseEntity<Animal> addAnimal(@RequestBody AnimalDto animalDto, @PathVariable int idUser) {
         return ResponseEntity.ok(animalService.addAnimal(animalDto, idUser));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping("/user/{idUser}/animal/{idAnimal}")
+    @PutMapping("/{idAnimal}/user/{idUser}")
     public ResponseEntity<Animal> editAnimal(@RequestBody AnimalDto animalDto, @PathVariable int idAnimal, @PathVariable int idUser) {
         return ResponseEntity.ok(animalService.editAnimal(animalDto, idAnimal, idUser));
     }
@@ -46,12 +46,12 @@ public class AnimalController {
         }
     }
 
-    @GetMapping("/getMessages/{idAnimal}")
+    @GetMapping("/{idAnimal}/messages")
     public ResponseEntity<List<Message>> getMessages(@PathVariable int idAnimal){
         return ResponseEntity.ok(animalService.getMessages(idAnimal));
     }
 
-    @GetMapping("/getReports/{idAnimal}")
+    @GetMapping("/{idAnimal}/reports")
     public ResponseEntity<List<Report>> getReports(@PathVariable int idAnimal){
         return ResponseEntity.ok(animalService.getReports(idAnimal));
     }

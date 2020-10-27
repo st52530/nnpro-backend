@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
-@RestController
+@RestController("/employees")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class EmployeeController {
 
@@ -21,18 +21,18 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/clinic/{idClinic}/employee")
+    @PostMapping("/clinic/{idClinic}")
     public ResponseEntity<User> addEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable int idClinic) {
         return ResponseEntity.ok(employeeService.addEmployee(employeeDto, idClinic));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping("/clinic/{idClinic}/employee/{idEmployee}")
+    @PutMapping("/{idEmployee}/clinic/{idClinic}")
     public ResponseEntity<User> editEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable int idClinic, @PathVariable int idEmployee) {
         return ResponseEntity.ok(employeeService.editEmployee(employeeDto,idEmployee, idClinic));
     }
 
-    @DeleteMapping("/employee/{idEmployee}")
+    @DeleteMapping("/{idEmployee}")
     public ResponseEntity<?> removeEmployee(@PathVariable int idEmployee) {
         try {
             employeeService.removeEmployee(idEmployee);

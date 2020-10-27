@@ -1,12 +1,7 @@
 package cz.upce.vetalmael.controller;
 
-import cz.upce.vetalmael.model.Animal;
-import cz.upce.vetalmael.model.Report;
 import cz.upce.vetalmael.model.Reservation;
-import cz.upce.vetalmael.model.User;
-import cz.upce.vetalmael.model.dto.EmployeeDto;
 import cz.upce.vetalmael.model.dto.ReservationDto;
-import cz.upce.vetalmael.service.EmployeeService;
 import cz.upce.vetalmael.service.ReservationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +15,7 @@ import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
-@RestController
-@RequestMapping
+@RestController("/reservations")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class ReservationController {
 
@@ -29,13 +23,13 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/clinic/{idClinic}/client/{idClient}/reservation")
+    @PostMapping("/clinic/{idClinic}/client/{idClient}")
     public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDto reservationDto, @PathVariable int idClinic, @PathVariable int idClient) {
         return ResponseEntity.ok(reservationService.addReservation(reservationDto, idClinic, idClient));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping("/reservation/{idReservation}")
+    @PutMapping("/{idReservation}")
     public ResponseEntity<Reservation> editReservation(@RequestBody ReservationDto reservationDto, @PathVariable int idReservation) {
         return ResponseEntity.ok(reservationService.editReservation(reservationDto, idReservation));
     }
@@ -50,7 +44,7 @@ public class ReservationController {
         }
     }
 
-    @GetMapping("/getAllReservations")
+    @GetMapping
     public ResponseEntity<List<Reservation>> getAnimals(){
         return ResponseEntity.ok(reservationService.getAllReservations());
     }
