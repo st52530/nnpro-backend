@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
-@RestController
+@RestController("/administrators")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class AdministratorController {
 
     @Autowired
     private AdministratorService administratorService;
 
-    @PostMapping("/administrator")
+    @PostMapping
     public ResponseEntity<User> addAdministrator(@RequestBody SingUpDto singUpDto) {
         return ResponseEntity.ok(administratorService.addAdministrator(singUpDto));
 

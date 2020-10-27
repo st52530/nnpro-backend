@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
-@RequestMapping("/operation")
+@RequestMapping("/operations")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class OperationController {
 

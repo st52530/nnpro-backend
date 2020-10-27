@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/clients")
 public class ClientController {
 
     @Autowired
@@ -31,13 +31,13 @@ public class ClientController {
         return ResponseEntity.ok(clientService.addClient(user));
     }
 
-    @GetMapping("/getAnimals")
+    @GetMapping("/animals")
     public ResponseEntity<List<Animal>> getAnimals(){
         User user = userService.getUserFromAuthenticationPrincipal();
         return ResponseEntity.ok(clientService.getAnimals(user.getIdUser()));
     }
 
-    @GetMapping("/getReservations")
+    @GetMapping("/reservations")
     public ResponseEntity<List<Reservation>> getReservations(){
         User user = userService.getUserFromAuthenticationPrincipal();
         return ResponseEntity.ok(clientService.getReservations(user.getIdUser()));
