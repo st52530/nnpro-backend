@@ -6,6 +6,7 @@ import cz.upce.vetalmael.model.dto.ReadyReportDto;
 import cz.upce.vetalmael.repository.ReportRepository;
 import cz.upce.vetalmael.service.LoginService;
 import cz.upce.vetalmael.service.ReportService;
+import cz.upce.vetalmael.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class ReportServiceImpl implements ReportService {
     private ReportRepository reportRepository;
 
     @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
     @Override
     public Report addReadyReport(ReadyReportDto reportDto) {
@@ -91,7 +92,7 @@ public class ReportServiceImpl implements ReportService {
             });
         }
 
-        User user = loginService.findByUsername(veterinaryUsername);
+        User user = userService.findByUsername(veterinaryUsername);
         report.setVeterinary(user);
         return report;
     }

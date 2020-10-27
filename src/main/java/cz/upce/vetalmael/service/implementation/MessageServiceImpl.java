@@ -7,6 +7,7 @@ import cz.upce.vetalmael.model.dto.MessageDto;
 import cz.upce.vetalmael.repository.MessageRepository;
 import cz.upce.vetalmael.service.LoginService;
 import cz.upce.vetalmael.service.MessageService;
+import cz.upce.vetalmael.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
 
     @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
     @Override
     public Message sendMessage(MessageDto messageDto, int idAnimal, String senderUsername) {
@@ -26,7 +27,7 @@ public class MessageServiceImpl implements MessageService {
         Animal animal = new Animal();
         animal.setIdAnimal(idAnimal);
         message.setAnimal(animal);
-        User sender = loginService.findByUsername(senderUsername);
+        User sender = userService.findByUsername(senderUsername);
         message.setSender(sender);
         return messageRepository.save(message);
     }
