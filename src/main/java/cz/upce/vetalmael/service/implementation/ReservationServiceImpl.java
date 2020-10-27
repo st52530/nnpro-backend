@@ -9,6 +9,8 @@ import cz.upce.vetalmael.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("reservationService")
 public class ReservationServiceImpl implements ReservationService {
 
@@ -39,5 +41,10 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void removeReservation(int idReservation) {
         reservationRepository.deleteById(idReservation);
+    }
+
+    @Override
+    public List<Reservation> getAllReservations() {
+        return reservationRepository.findAll();
     }
 }

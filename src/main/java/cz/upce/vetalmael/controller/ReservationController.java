@@ -1,5 +1,7 @@
 package cz.upce.vetalmael.controller;
 
+import cz.upce.vetalmael.model.Animal;
+import cz.upce.vetalmael.model.Report;
 import cz.upce.vetalmael.model.Reservation;
 import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.EmployeeDto;
@@ -13,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
@@ -44,5 +48,10 @@ public class ReservationController {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/getAllReservations")
+    public ResponseEntity<List<Reservation>> getAnimals(){
+        return ResponseEntity.ok(reservationService.getAllReservations());
     }
 }
