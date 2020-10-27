@@ -54,6 +54,9 @@ public class Report implements Serializable {
     @JoinColumn(name="operation_id")
     private Operation operation;
 
+
+
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "report_medicine",
             joinColumns = { @JoinColumn(name = "report_id") },
