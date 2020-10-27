@@ -17,7 +17,8 @@ import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
-@RestController("/animals")
+@RestController
+@RequestMapping("/animals")
 @SecurityRequirement(name = SWAGGER_AUTH_KEY)
 public class AnimalController {
 
