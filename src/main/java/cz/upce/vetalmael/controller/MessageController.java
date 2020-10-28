@@ -1,8 +1,10 @@
 package cz.upce.vetalmael.controller;
 
 import cz.upce.vetalmael.model.Message;
+import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.MessageDto;
 import cz.upce.vetalmael.service.MessageService;
+import cz.upce.vetalmael.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +24,13 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private UserService userService;
+
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/animal/{idAnimal}")
     public ResponseEntity<Message> sendMessage(@RequestBody MessageDto messageDto, @PathVariable int idAnimal) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getPrincipal().toString();
-        return ResponseEntity.ok(messageService.sendMessage(messageDto,idAnimal,username));
+        User loggedUser = userService.getUserFromAuthenticationPrincipal();
+        return ResponseEntity.ok(messageService.sendMessage(messageDto,idAnimal,loggedUser.getUsername()));
     }
 }
