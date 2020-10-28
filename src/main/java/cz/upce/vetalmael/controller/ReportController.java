@@ -1,9 +1,11 @@
 package cz.upce.vetalmael.controller;
 
 import cz.upce.vetalmael.model.Report;
+import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.DoneReportDto;
 import cz.upce.vetalmael.model.dto.ReadyReportDto;
 import cz.upce.vetalmael.service.ReportService;
+import cz.upce.vetalmael.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -24,6 +26,9 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
+    @Autowired
+    private UserService userService;
+
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/ready")
     public ResponseEntity<Report> addReport(@RequestBody ReadyReportDto readyReportDto) {
@@ -39,24 +44,21 @@ public class ReportController {
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/done")
     public ResponseEntity<Report> addDoneReport(@RequestBody DoneReportDto readyReportDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getPrincipal().toString();
-        return ResponseEntity.ok(reportService.addDoneReport(readyReportDto, username));
+        User loggedUser = userService.getUserFromAuthenticationPrincipal();
+        return ResponseEntity.ok(reportService.addDoneReport(readyReportDto, loggedUser.getUsername()));
     }
 
     @Transactional(rollbackOn = Exception.class)
     @PutMapping("/ready/{idReadyReport}/done")
     public ResponseEntity<Report> makeDoneReport(@RequestBody DoneReportDto readyReportDto, @PathVariable int idReadyReport) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getPrincipal().toString();
-        return ResponseEntity.ok(reportService.makeReadyReportDone(readyReportDto, idReadyReport, username));
+        User loggedUser = userService.getUserFromAuthenticationPrincipal();
+        return ResponseEntity.ok(reportService.makeReadyReportDone(readyReportDto, idReadyReport, loggedUser.getUsername()));
     }
 
     @Transactional(rollbackOn = Exception.class)
     @PutMapping("/done/{idDoneReport}")
     public ResponseEntity<Report> editDoneReport(@RequestBody DoneReportDto readyReportDto, @PathVariable int idDoneReport) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getPrincipal().toString();
-        return ResponseEntity.ok(reportService.editDoneReport(readyReportDto, idDoneReport, username));
+        User loggedUser = userService.getUserFromAuthenticationPrincipal();
+        return ResponseEntity.ok(reportService.editDoneReport(readyReportDto, idDoneReport, loggedUser.getUsername()));
     }
 }
