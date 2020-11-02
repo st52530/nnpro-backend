@@ -3,6 +3,7 @@ package cz.upce.vetalmael.controller;
 import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Message;
 import cz.upce.vetalmael.model.Report;
+import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.AnimalDto;
 import cz.upce.vetalmael.service.AnimalService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -55,5 +56,11 @@ public class AnimalController {
     @GetMapping("/{idAnimal}/reports")
     public ResponseEntity<List<Report>> getReports(@PathVariable int idAnimal){
         return ResponseEntity.ok(animalService.getReports(idAnimal));
+    }
+
+    @GetMapping("/{idAnimal}")
+    @SecurityRequirement(name = SWAGGER_AUTH_KEY)
+    public ResponseEntity<Animal> getAnimal(@PathVariable int idAnimal){
+        return ResponseEntity.ok(animalService.getAnimal(idAnimal));
     }
 }

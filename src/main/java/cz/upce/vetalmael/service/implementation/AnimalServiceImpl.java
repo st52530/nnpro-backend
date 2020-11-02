@@ -61,4 +61,9 @@ public class AnimalServiceImpl implements AnimalService {
     public List<Report> getReports(int idAnimal) {
         return reportRepository.findAllByAnimal_IdAnimal(idAnimal);
     }
+
+    @Override
+    public Animal getAnimal(int idAnimal) {
+        return animalRepository.getOne(idAnimal);
+    }
 }

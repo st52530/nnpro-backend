@@ -1,5 +1,6 @@
 package cz.upce.vetalmael.controller;
 
+import cz.upce.vetalmael.model.Clinic;
 import cz.upce.vetalmael.model.Consumable;
 import cz.upce.vetalmael.model.Medicine;
 import cz.upce.vetalmael.model.dto.ConsumableDto;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
@@ -44,5 +47,15 @@ public class ConsumableController {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Consumable>> getConsumables(){
+        return ResponseEntity.ok(consumableService.getConsumables());
+    }
+
+    @GetMapping("/{idConsumable}")
+    public ResponseEntity<Consumable> getConsumable(@PathVariable int idConsumable){
+        return ResponseEntity.ok(consumableService.getConsumable(idConsumable));
     }
 }

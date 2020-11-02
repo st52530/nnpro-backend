@@ -102,4 +102,17 @@ public class ClinicController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @Transactional(rollbackOn = Exception.class)
+    @GetMapping("/{idClinic}/clinic-consumable/consumable/{idConsumable}")
+    public ResponseEntity<ClinicConsumable> getConsumablesInClinic(@PathVariable int idClinic, @PathVariable int idConsumable) {
+        return ResponseEntity.ok(clinicConsumableService.getClinicConsumable(idClinic, idConsumable));
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    @GetMapping("/{idClinic}/clinic-consumable/consumables")
+    public ResponseEntity<List<ClinicConsumable>> getConsumablesInClinic(@PathVariable int idClinic) {
+        return ResponseEntity.ok(clinicConsumableService.getClinicConsumables(idClinic));
+    }
+
 }

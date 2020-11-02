@@ -7,6 +7,8 @@ import cz.upce.vetalmael.service.ClinicConsumableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "clinicConsumableService")
 public class ClinicConsumableServiceImpl implements ClinicConsumableService {
 
@@ -38,4 +40,16 @@ public class ClinicConsumableServiceImpl implements ClinicConsumableService {
     public void removeClinicConsumable(int idClinicConsumable) {
         clinicConsumableRepository.deleteById(idClinicConsumable);
     }
+
+    @Override
+    public ClinicConsumable getClinicConsumable(int idClinic, int idConsumable) {
+        return clinicConsumableRepository.findByClinic_IdClinicAndConsumable_IdConsumable(idClinic,idConsumable);
+    }
+
+    @Override
+    public List<ClinicConsumable> getClinicConsumables(int idClinic) {
+        return clinicConsumableRepository.findAllByClinic_IdClinic(idClinic);
+    }
+
+
 }
