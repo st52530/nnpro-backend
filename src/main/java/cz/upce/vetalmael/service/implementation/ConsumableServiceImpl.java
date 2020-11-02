@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "consumableService")
 public class ConsumableServiceImpl implements ConsumableService {
 
@@ -34,5 +36,15 @@ public class ConsumableServiceImpl implements ConsumableService {
     @Override
     public void removeConsumable(int idConsumable) {
         consumableRepository.deleteById(idConsumable);
+    }
+
+    @Override
+    public Consumable getConsumable(int idConsumable) {
+        return consumableRepository.getOne(idConsumable);
+    }
+
+    @Override
+    public List<Consumable> getConsumables() {
+        return consumableRepository.findAll();
     }
 }

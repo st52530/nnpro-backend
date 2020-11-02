@@ -13,8 +13,13 @@ public interface ClientService {
 
     User addClient(SingUpDto user);
 
+
     List<Animal> getAnimals(int idUser);
 
     List<Reservation> getReservations(int idUser);
+
+    User getClient(int idClient);
+
+    List<User> getClients();
 
 }

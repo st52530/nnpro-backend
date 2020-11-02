@@ -18,4 +18,6 @@ public interface AnimalService {
     List<Message> getMessages(int idAnimal);
 
     List<Report> getReports(int idAnimal);
+
+    Animal getAnimal(int idAnimal);
 }

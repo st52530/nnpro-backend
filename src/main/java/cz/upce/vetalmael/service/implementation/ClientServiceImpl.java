@@ -55,5 +55,15 @@ public class ClientServiceImpl implements ClientService {
         return reservationRepository.findAllByClient_idUser(idUser);
     }
 
+    @Override
+    public User getClient(int idClient) {
+        return userRepository.getOne(idClient);
+    }
+
+    @Override
+    public List<User> getClients() {
+        return userRepository.findAllByRolesLike("CLIENT");
+    }
+
 
 }
