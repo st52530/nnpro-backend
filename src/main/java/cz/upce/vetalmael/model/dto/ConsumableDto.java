@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +21,6 @@ public class ConsumableDto {
     private String unitOfMeasure;
     private String producer;
     private String countryOfOrigin;
-    private String dateOfExpiration;
-    private String dateOfChange;
+    private Date dateOfExpiration;
+    private Date dateOfChange;
 }
