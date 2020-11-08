@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+
+import java.io.IOException;
+import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
@@ -25,6 +29,15 @@ public class OperationController {
     @PostMapping
     public ResponseEntity<Operation> addAnimal(@RequestBody OperationDto operationDto) {
         return ResponseEntity.ok(operationService.addOperation(operationDto));
+    }
+
+    @PostMapping(value = "/excel", consumes = {"multipart/form-data"})
+    public ResponseEntity<List<Operation>> importOperationss(@RequestParam("file") MultipartFile file) {
+        try {
+            return ResponseEntity.ok(operationService.importOperations(file));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @Transactional(rollbackOn = Exception.class)
