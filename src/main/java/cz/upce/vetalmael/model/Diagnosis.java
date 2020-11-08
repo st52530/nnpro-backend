@@ -30,16 +30,16 @@ public class Diagnosis implements Serializable {
     @Column(nullable = false)
     private String targetAnimals;
 
-    @Column(nullable = false)
+    @Column
     private String symptoms;
 
-    @Column(nullable = false)
+    @Column
     private String incubationPeriod;
 
-    @Column(nullable = false)
+    @Column
     private String treatment;
 
-    @Column(nullable = false)
+    @Column
     private String prevention;
 
 
