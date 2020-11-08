@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "consumable")
@@ -52,10 +49,10 @@ public class Consumable implements Serializable {
     private String countryOfOrigin;
 
     @Column(nullable = false)
-    private String dateOfExpiration;
+    private Date dateOfExpiration;
 
     @Column(nullable = false)
-    private String dateOfChange;
+    private Date dateOfChange;
 
     @JsonIgnore
     @OneToMany(mappedBy = "consumable", cascade = CascadeType.PERSIST)
