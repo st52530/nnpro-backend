@@ -27,11 +27,35 @@ public class Consumable implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String code;
 
     @Column(nullable = false)
     private double price;
+
+    @Column(nullable = false)
+    private String nameAddition;
+
+    @Column(nullable = false)
+    private String groupType;
+
+    @Column(nullable = false)
+    private String prescriptionDesignation;
+
+    @Column(nullable = false)
+    private String unitOfMeasure;
+
+    @Column(nullable = false)
+    private String producer;
+
+    @Column(nullable = false)
+    private String countryOfOrigin;
+
+    @Column(nullable = false)
+    private String dateOfExpiration;
+
+    @Column(nullable = false)
+    private String dateOfChange;
 
     @JsonIgnore
     @OneToMany(mappedBy = "consumable", cascade = CascadeType.PERSIST)

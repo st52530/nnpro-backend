@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "medicine")
@@ -27,8 +24,36 @@ public class Medicine implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String code;
+
+    @Column(nullable = false)
+    private String substances;
+
+    @Column(nullable = false)
+    private String targetAnimals;
+
+    @Column
+    private String form;
+
+    @Column
+    private Date dateOfApproval;
+
+    @Column
+    private String numberOfApproval;
+
+    @Column
+    private String approvalHolder;
+
+    @Column
+    private String protectionPeriod;
+
+    @Column
+    private String type;
+
+    @Column
+    private String packageSize;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "medicine", cascade = CascadeType.PERSIST)

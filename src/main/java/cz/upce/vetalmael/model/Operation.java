@@ -30,6 +30,19 @@ public class Operation implements Serializable {
     @Column(nullable = false)
     private String type;
 
+    @Column
+    private String description;
+
+    @Column(nullable = false)
+    private String length;
+
+    @Column
+    private String note;
+
+    @Column(nullable = false)
+    private String targetAnimals;
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "operation", cascade = CascadeType.PERSIST)
     private List<Report> reports = new ArrayList<>();
