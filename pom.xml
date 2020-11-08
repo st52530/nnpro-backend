@@ -114,6 +114,13 @@
             <version>2.3.5</version>
         </dependency>
 
+        <!-- excel import -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
