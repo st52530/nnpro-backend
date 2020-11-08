@@ -1,12 +1,21 @@
 package cz.upce.vetalmael.service.implementation;
 
+import cz.upce.vetalmael.model.Consumable;
 import cz.upce.vetalmael.model.Medicine;
 import cz.upce.vetalmael.model.dto.MedicineDto;
 import cz.upce.vetalmael.repository.MedicineRepository;
 import cz.upce.vetalmael.service.MedicineService;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service(value = "medicineService")
 public class MedicineServiceImpl implements MedicineService {
@@ -21,6 +30,32 @@ public class MedicineServiceImpl implements MedicineService {
     public Medicine addMedicine(MedicineDto medicineDto) {
         Medicine medicine = modelMapper.map(medicineDto, Medicine.class);
         return medicineRepository.save(medicine);
+    }
+
+    @Override
+    public List<Medicine> importMedicine(MultipartFile file) throws IOException {
+        List<Medicine> list = new ArrayList<>();
+        XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+        for (int index = 1; index < worksheet.getPhysicalNumberOfRows(); index++) {
+            if (index > 1) {
+                Medicine medicine = new Medicine();
+
+                XSSFRow row = worksheet.getRow(index);
+                medicine.setCode(row.getCell(0).getRawValue());
+                medicine.setName(row.getCell(1).getStringCellValue());
+                medicine.setSubstances(row.getCell(2).getStringCellValue());
+                medicine.setTargetAnimals(row.getCell(3).getStringCellValue());
+                medicine.setForm(row.getCell(4).getStringCellValue());
+                medicine.setDateOfApproval(row.getCell(5).getDateCellValue());
+                medicine.setNumberOfApproval(row.getCell(6).getStringCellValue());
+                medicine.setApprovalHolder(row.getCell(7).getStringCellValue());
+                medicine.setProtectionPeriod(row.getCell(8).getStringCellValue());
+
+                list.add(medicine);
+            }
+        }
+        return medicineRepository.saveAll(list);
     }
 
     @Override
