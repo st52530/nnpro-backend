@@ -68,4 +68,14 @@ public class OperationServiceImpl implements OperationService {
     public void removeOperation(int idOperation) {
         operationRepository.deleteById(idOperation);
     }
+
+    @Override
+    public List<Operation> getOperations() {
+        return operationRepository.findAll();
+    }
+
+    @Override
+    public Operation getOperation(int idOperation) {
+        return operationRepository.getOne(idOperation);
+    }
 }

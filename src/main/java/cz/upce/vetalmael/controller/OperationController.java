@@ -1,6 +1,7 @@
 package cz.upce.vetalmael.controller;
 
 import cz.upce.vetalmael.model.Operation;
+import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.OperationDto;
 import cz.upce.vetalmael.service.OperationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -54,5 +55,15 @@ public class OperationController {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Operation>> getOperations() {
+        return ResponseEntity.ok(operationService.getOperations());
+    }
+
+    @GetMapping("/{idOperation}")
+    public ResponseEntity<Operation> getOperation(@PathVariable int idOperation) {
+        return ResponseEntity.ok(operationService.getOperation(idOperation));
     }
 }
