@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @Service(value = "employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -61,5 +63,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void removeEmployee(int idEmployee) {
         userRepository.deleteById(idEmployee);
+    }
+
+    @Override
+    public List<User> getClinicEmployees(int idClinic) {
+        return userRepository.findAllByWorkplace_IdClinic(idClinic);
     }
 }

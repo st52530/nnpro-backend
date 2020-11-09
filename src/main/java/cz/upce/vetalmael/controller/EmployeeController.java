@@ -1,5 +1,6 @@
 package cz.upce.vetalmael.controller;
 
+import cz.upce.vetalmael.model.ClinicMedicine;
 import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.EmployeeDto;
 import cz.upce.vetalmael.service.EmployeeService;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
@@ -41,5 +44,10 @@ public class EmployeeController {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/clinic/{idClinic}")
+    public ResponseEntity<List<User>> getMedicinesInClinic(@PathVariable int idClinic) {
+        return ResponseEntity.ok(employeeService.getClinicEmployees(idClinic));
     }
 }

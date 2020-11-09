@@ -1,5 +1,6 @@
 package cz.upce.vetalmael.controller;
 
+import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Consumable;
 import cz.upce.vetalmael.model.Diagnosis;
 import cz.upce.vetalmael.model.dto.DiagnosisDto;
@@ -55,5 +56,10 @@ public class DiagnosisController {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/animals/{idAnimal}")
+    public ResponseEntity<List<Diagnosis>> getAnimalDiagnosis(@PathVariable int idAnimal){
+        return ResponseEntity.ok(diagnosisService.getAnimalDiagnosis(idAnimal));
     }
 }

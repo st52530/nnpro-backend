@@ -1,9 +1,11 @@
 package cz.upce.vetalmael.service.implementation;
 
-import cz.upce.vetalmael.model.Consumable;
 import cz.upce.vetalmael.model.Diagnosis;
+import cz.upce.vetalmael.model.Report;
 import cz.upce.vetalmael.model.dto.DiagnosisDto;
+import cz.upce.vetalmael.repository.AnimalRepository;
 import cz.upce.vetalmael.repository.DiagnosisRepository;
+import cz.upce.vetalmael.repository.ReportRepository;
 import cz.upce.vetalmael.service.DiagnosisService;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service(value = "diagnosisService")
 public class DiagnosisServiceImpl implements DiagnosisService {
@@ -25,6 +28,9 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
     @Autowired
     private DiagnosisRepository diagnosisRepository;
+
+    @Autowired
+    private ReportRepository reportRepository;
 
     @Override
     public Diagnosis addDiagnosis(DiagnosisDto diagnosisDto) {
@@ -66,5 +72,10 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Override
     public void removeDiagnosis(int idDiagnosis) {
         diagnosisRepository.deleteById(idDiagnosis);
+    }
+
+    @Override
+    public List<Diagnosis> getAnimalDiagnosis(int idAnimal) {
+        return reportRepository.findAllByAnimal_IdAnimal(idAnimal).stream().map(Report::getDiagnosis).collect(Collectors.toList());
     }
 }

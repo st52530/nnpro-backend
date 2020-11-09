@@ -14,4 +14,6 @@ public interface OperationService {
     List<Operation> importOperations(MultipartFile file) throws IOException;
     Operation editOperation(OperationDto operationDto, int idOperation);
     void removeOperation(int idOperation);
+    List<Operation> getOperations();
+    Operation getOperation(int idOperation);
 }

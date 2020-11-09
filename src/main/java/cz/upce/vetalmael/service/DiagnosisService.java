@@ -14,5 +14,6 @@ public interface DiagnosisService {
     List<Diagnosis> importDiagnosis(MultipartFile file) throws IOException;
     Diagnosis editDiagnosis(DiagnosisDto diagnosisDto, int idDiagnosis);
     void removeDiagnosis(int idDiagnosis);
+    List<Diagnosis> getAnimalDiagnosis(int idAnimal);
 
 }

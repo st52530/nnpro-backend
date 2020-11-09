@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 
     List<User> findAllByRolesLike(String like);
 
+    List<User> findAllByWorkplace_IdClinic(int idClinic);
+
 }
