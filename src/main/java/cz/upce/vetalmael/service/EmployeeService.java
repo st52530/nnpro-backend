@@ -11,4 +11,6 @@ public interface EmployeeService {
     User editEmployee(EmployeeDto employeeDto,int idEmployee, int idClinic);
     void removeEmployee(int idEmployee);
     List<User> getClinicEmployees(int idClinic);
+    List<User> getEmployees();
+    User getEmployee(int idEmployee);
 }
