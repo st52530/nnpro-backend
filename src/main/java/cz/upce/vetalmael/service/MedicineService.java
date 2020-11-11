@@ -14,4 +14,6 @@ public interface MedicineService {
     List<Medicine> importMedicine(MultipartFile file) throws IOException;
     Medicine editMedicine(MedicineDto medicineDto, int idMedicine);
     void removeMedicine(int idMedicine);
+    Medicine getMedicine(int idMedicine);
+    List<Medicine> getMedicines();
 }

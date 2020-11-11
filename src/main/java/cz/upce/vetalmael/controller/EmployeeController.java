@@ -1,6 +1,5 @@
 package cz.upce.vetalmael.controller;
 
-import cz.upce.vetalmael.model.ClinicMedicine;
 import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.EmployeeDto;
 import cz.upce.vetalmael.service.EmployeeService;
@@ -49,5 +48,15 @@ public class EmployeeController {
     @GetMapping("/clinic/{idClinic}")
     public ResponseEntity<List<User>> getMedicinesInClinic(@PathVariable int idClinic) {
         return ResponseEntity.ok(employeeService.getClinicEmployees(idClinic));
+    }
+
+    @GetMapping("/{idEmployee}")
+    public ResponseEntity<User> getEmployee(@PathVariable int idEmployee){
+        return ResponseEntity.ok(employeeService.getEmployee(idEmployee));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> getEmployees(){
+        return ResponseEntity.ok(employeeService.getEmployees());
     }
 }

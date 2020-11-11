@@ -69,4 +69,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<User> getClinicEmployees(int idClinic) {
         return userRepository.findAllByWorkplace_IdClinic(idClinic);
     }
+
+    @Override
+    public List<User> getEmployees() {
+        return userRepository.findAllByRolesContainingOrRolesContaining(Role.VETERINARY.getAuthority(),Role.VETERINARY_TECHNICIAN.getAuthority());
+    }
+
+    @Override
+    public User getEmployee(int idEmployee) {
+        return userRepository.getOne(idEmployee);
+    }
 }
