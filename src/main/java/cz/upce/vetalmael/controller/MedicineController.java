@@ -3,6 +3,7 @@ package cz.upce.vetalmael.controller;
 
 import cz.upce.vetalmael.model.Diagnosis;
 import cz.upce.vetalmael.model.Medicine;
+import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.MedicineDto;
 import cz.upce.vetalmael.service.MedicineService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -56,5 +57,15 @@ public class MedicineController {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{idMedicine}")
+    public ResponseEntity<Medicine> getMedicine(@PathVariable int idMedicine){
+        return ResponseEntity.ok(medicineService.getMedicine(idMedicine));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Medicine>> getMedicines(){
+        return ResponseEntity.ok(medicineService.getMedicines());
     }
 }

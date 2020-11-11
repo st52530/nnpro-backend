@@ -69,4 +69,14 @@ public class MedicineServiceImpl implements MedicineService {
     public void removeMedicine(int idMedicine) {
         medicineRepository.deleteById(idMedicine);
     }
+
+    @Override
+    public Medicine getMedicine(int idMedicine) {
+        return medicineRepository.getOne(idMedicine);
+    }
+
+    @Override
+    public List<Medicine> getMedicines() {
+        return medicineRepository.findAll();
+    }
 }
