@@ -1,6 +1,7 @@
 package cz.upce.vetalmael.repository;
 
 import cz.upce.vetalmael.model.Animal;
+import cz.upce.vetalmael.model.Diagnosis;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

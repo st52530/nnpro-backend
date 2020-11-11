@@ -5,6 +5,7 @@ import cz.upce.vetalmael.model.Message;
 import cz.upce.vetalmael.model.Report;
 import cz.upce.vetalmael.model.dto.AnimalDto;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface AnimalService {
@@ -20,4 +21,7 @@ public interface AnimalService {
     List<Report> getReports(int idAnimal);
 
     Animal getAnimal(int idAnimal);
+
+    List<Animal> getAnimals();
+
 }

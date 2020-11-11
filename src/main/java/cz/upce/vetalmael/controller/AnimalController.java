@@ -1,5 +1,6 @@
 package cz.upce.vetalmael.controller;
 
+import com.lowagie.text.DocumentException;
 import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Message;
 import cz.upce.vetalmael.model.Report;
@@ -12,8 +13,13 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
@@ -59,8 +65,13 @@ public class AnimalController {
     }
 
     @GetMapping("/{idAnimal}")
-    @SecurityRequirement(name = SWAGGER_AUTH_KEY)
     public ResponseEntity<Animal> getAnimal(@PathVariable int idAnimal){
         return ResponseEntity.ok(animalService.getAnimal(idAnimal));
     }
+
+    @GetMapping
+    public ResponseEntity<List<Animal>> getAnimals(){
+        return ResponseEntity.ok(animalService.getAnimals());
+    }
+
 }

@@ -1,5 +1,8 @@
 package cz.upce.vetalmael.service.implementation;
 
+import com.lowagie.text.*;
+import com.lowagie.text.Font;
+import com.lowagie.text.pdf.PdfWriter;
 import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Message;
 import cz.upce.vetalmael.model.Report;
@@ -12,6 +15,8 @@ import cz.upce.vetalmael.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.util.List;
 
 @Service(value = "animalService")
@@ -66,4 +71,10 @@ public class AnimalServiceImpl implements AnimalService {
     public Animal getAnimal(int idAnimal) {
         return animalRepository.getOne(idAnimal);
     }
+
+    @Override
+    public List<Animal> getAnimals() {
+        return animalRepository.findAll();
+    }
+
 }
