@@ -23,11 +23,11 @@ public class Reservation implements Serializable {
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="clinic_id")
+    @JoinColumn(name="clinic_id", updatable = false)
     private Clinic clinic;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id", updatable = false)
     private User client;
 
 
