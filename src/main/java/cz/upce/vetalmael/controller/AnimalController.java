@@ -1,10 +1,8 @@
 package cz.upce.vetalmael.controller;
 
-import com.lowagie.text.DocumentException;
 import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Message;
 import cz.upce.vetalmael.model.Report;
-import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.AnimalDto;
 import cz.upce.vetalmael.service.AnimalService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -13,13 +11,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
