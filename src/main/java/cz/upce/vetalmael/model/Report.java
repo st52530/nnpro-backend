@@ -39,7 +39,7 @@ public class Report implements Serializable {
     private Timestamp date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="animal_id", nullable = false)
+    @JoinColumn(name="animal_id", nullable = false, updatable = false)
     private Animal animal;
 
     @ManyToOne(fetch = FetchType.LAZY)

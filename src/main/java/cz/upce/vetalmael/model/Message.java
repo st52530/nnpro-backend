@@ -28,10 +28,10 @@ public class Message implements Serializable {
     private Timestamp date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id", updatable = false, nullable = false)
     private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="animal_id")
+    @JoinColumn(name="animal_id", updatable = false, nullable = false)
     private Animal animal;
 }
