@@ -54,13 +54,13 @@ public class Report implements Serializable {
     @JoinColumn(name="operation_id")
     private Operation operation;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "report_medicine",
             joinColumns = { @JoinColumn(name = "report_id") },
             inverseJoinColumns = { @JoinColumn(name = "medicine_id") })
     private Set<Medicine> medicines = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "report_consumable",
             joinColumns = { @JoinColumn(name = "report_id") },
             inverseJoinColumns = { @JoinColumn(name = "consumable_id") })
