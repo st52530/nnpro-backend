@@ -20,7 +20,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE");
+                registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
             }
         };
     }
