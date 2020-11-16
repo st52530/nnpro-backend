@@ -39,7 +39,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/swagger"
                 ).permitAll()
-                .antMatchers("/administrator").hasAuthority(Role.ADMINISTRATOR.getAuthority())
+                //AdministratorController
+                //.antMatchers("/administrators**").hasAuthority(Role.ADMINISTRATOR.getAuthority())
+                //AnimalController
+                /*.antMatchers(HttpMethod.POST, "/animals").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
+                .antMatchers(HttpMethod.PUT, "/animals/**").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
+                .antMatchers(HttpMethod.DELETE, "/animals/**").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
+                //ClientController
+                .antMatchers(HttpMethod.POST, "/clients/{idClient}**").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
+                .antMatchers(HttpMethod.POST, "/clinic").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
+                .antMatchers(HttpMethod.PUT, "/clinic/**").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
+                //ClinicController
+                .antMatchers(HttpMethod.DELETE, "/clinic/**").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
+                */
                 .antMatchers(HttpMethod.POST, SIGN_IN_URL).permitAll()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .anyRequest().authenticated()
