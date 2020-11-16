@@ -9,6 +9,7 @@ import java.util.List;
 public interface ClinicService {
 
     Clinic addClinic(ClinicDto clinicDto);
+    Clinic editClinic(ClinicDto clinicDto, int idClinic);
     void removeClinic(int idClinic);
     Clinic getClinic(int idClinic);
     List<Clinic> getClinics();
