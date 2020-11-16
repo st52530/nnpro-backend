@@ -48,6 +48,10 @@ public class DiagnosisServiceImpl implements DiagnosisService {
                 Diagnosis diagnosis = new Diagnosis();
 
                 XSSFRow row = worksheet.getRow(index);
+                if(row == null || row.getCell(0) == null){
+                    break;
+                }
+
                 diagnosis.setTargetAnimals(row.getCell(0).getStringCellValue());
                 diagnosis.setType(row.getCell(1).getStringCellValue());
                 diagnosis.setName(row.getCell(2).getStringCellValue());

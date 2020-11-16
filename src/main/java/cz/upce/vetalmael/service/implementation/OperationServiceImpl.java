@@ -42,6 +42,9 @@ public class OperationServiceImpl implements OperationService {
                 Operation operation = new Operation();
 
                 XSSFRow row = worksheet.getRow(index);
+                if(row == null || row.getCell(0) == null){
+                    break;
+                }
                 operation.setType(row.getCell(0).getStringCellValue());
                 operation.setName(row.getCell(1).getStringCellValue());
                 operation.setDescription(row.getCell(2).getStringCellValue());
