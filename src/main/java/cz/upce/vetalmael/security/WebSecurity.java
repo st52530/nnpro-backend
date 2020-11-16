@@ -40,7 +40,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger"
                 ).permitAll()
                 //AdministratorController
-                //.antMatchers("/administrators**").hasAuthority(Role.ADMINISTRATOR.getAuthority())
+                .antMatchers("/administrators**").permitAll()
                 //AnimalController
                 /*.antMatchers(HttpMethod.POST, "/animals").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
                 .antMatchers(HttpMethod.PUT, "/animals/**").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
