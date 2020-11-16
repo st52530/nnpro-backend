@@ -28,6 +28,13 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    public Clinic editClinic(ClinicDto clinicDto, int idClinic) {
+        Clinic clinic = modelMapper.map(clinicDto, Clinic.class);
+        clinic.setIdClinic(idClinic);
+        return clinicRepository.save(clinic);
+    }
+
+    @Override
     public void removeClinic(int idClinic) {
         clinicRepository.deleteById(idClinic);
     }

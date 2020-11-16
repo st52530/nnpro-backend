@@ -39,6 +39,12 @@ public class ClinicController {
         return ResponseEntity.ok(clinicService.addClinic(clinicDto));
     }
 
+    @Transactional(rollbackOn = Exception.class)
+    @PutMapping("/{idClinic}")
+    public ResponseEntity<Clinic> editClinic(@RequestBody ClinicDto clinicDto, @PathVariable int idClinic) {
+        return ResponseEntity.ok(clinicService.editClinic(clinicDto, idClinic));
+    }
+
     @DeleteMapping("/{idClinic}")
     public ResponseEntity<?> removeClinic(@PathVariable int idClinic) {
         try {
