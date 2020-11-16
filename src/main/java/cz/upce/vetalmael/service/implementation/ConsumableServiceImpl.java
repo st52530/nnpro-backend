@@ -37,24 +37,28 @@ public class ConsumableServiceImpl implements ConsumableService {
         List<Consumable> list = new ArrayList<>();
         XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
+        System.out.println(worksheet.getPhysicalNumberOfRows());
         for (int index = 1; index < worksheet.getPhysicalNumberOfRows(); index++) {
-            if (index > 1) {
+            if (index >= 1) {
                 Consumable consumableDto = new Consumable();
 
                 XSSFRow row = worksheet.getRow(index);
-                consumableDto.setCode(row.getCell(0).getStringCellValue());
-                consumableDto.setName(row.getCell(1).getStringCellValue());
-                consumableDto.setNameAddition(row.getCell(2).getStringCellValue());
-                consumableDto.setGroupType(row.getCell(3).getStringCellValue());
-                consumableDto.setPrescriptionDesignation(row.getCell(4).getStringCellValue());
-                consumableDto.setUnitOfMeasure(row.getCell(5).getStringCellValue());
-                consumableDto.setProducer(row.getCell(6).getStringCellValue());
-                consumableDto.setCountryOfOrigin(row.getCell(7).getStringCellValue());
+                if(row == null || row.getCell(0) == null){
+                    break;
+                }
+                consumableDto.setCode(row.getCell(0).getRawValue());
+                consumableDto.setName(row.getCell(1).getRawValue());
+                consumableDto.setNameAddition(row.getCell(2).getRawValue());
+                consumableDto.setGroupType(row.getCell(3).getRawValue());
+                consumableDto.setPrescriptionDesignation(row.getCell(4).getRawValue());
+                consumableDto.setUnitOfMeasure(row.getCell(5).getRawValue());
+                consumableDto.setProducer(row.getCell(6).getRawValue());
+                consumableDto.setCountryOfOrigin(row.getCell(7).getRawValue());
                 consumableDto.setPrice(row.getCell(8).getNumericCellValue());
                 consumableDto.setDateOfExpiration(row.getCell(9).getDateCellValue());
                 consumableDto.setDateOfChange(row.getCell(10).getDateCellValue());
                 list.add(consumableDto);
-            }
+           }
         }
         return consumableRepository.saveAll(list);
     }
