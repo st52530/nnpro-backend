@@ -42,7 +42,10 @@ public class MedicineServiceImpl implements MedicineService {
                 Medicine medicine = new Medicine();
 
                 XSSFRow row = worksheet.getRow(index);
-                medicine.setCode(row.getCell(0).getRawValue());
+                if(row == null || row.getCell(0) == null){
+                    break;
+                }
+                medicine.setCode(row.getCell(0).getStringCellValue());
                 medicine.setName(row.getCell(1).getStringCellValue());
                 medicine.setSubstances(row.getCell(2).getStringCellValue());
                 medicine.setTargetAnimals(row.getCell(3).getStringCellValue());
