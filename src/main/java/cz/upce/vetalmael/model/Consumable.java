@@ -60,6 +60,6 @@ public class Consumable implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @JsonIgnore
-    @ManyToMany(mappedBy = "consumables", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "consumables", cascade = CascadeType.PERSIST)
     private Set<Report> reports = new HashSet<>();
 }
