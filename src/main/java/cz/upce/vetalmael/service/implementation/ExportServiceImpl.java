@@ -41,32 +41,43 @@ public class ExportServiceImpl implements ExportService {
             PdfPTable tableDescription = new PdfPTable(2);
             addTableHeader(tableDescription, new String[]{"Popis", "Hodnota"});
 
-            addRows(tableDescription, "Potíže", report.getTextDescription());
+            if(report.getTextDescription() != null)
+                addRows(tableDescription, "Potíže", report.getTextDescription());
 
-            addRows(tableDescription, "Popis diagnozy", report.getTextDiagnosis());
+            if(report.getTextDiagnosis() != null)
+                addRows(tableDescription, "Popis diagnozy", report.getTextDiagnosis());
 
-            addRows(tableDescription, "Doporučení", report.getTextRecommendation());
+            if(report.getTextRecommendation() != null)
+                addRows(tableDescription, "Doporučení", report.getTextRecommendation());
 
-            addRows(tableDescription, "Datum návštěvy", report.getDate().toString());
+            if(report.getDate() != null)
+                addRows(tableDescription, "Datum návštěvy", report.getDate().toString());
 
-            addRows(tableDescription, "Jméno zvířete", report.getAnimal().getName());
+            if(report.getAnimal() != null)
+                addRows(tableDescription, "Jméno zvířete", report.getAnimal().getName());
 
-            addRows(tableDescription, "Jméno veterináře", report.getVeterinary().getFullName());
+            if(report.getVeterinary() != null)
+                addRows(tableDescription, "Jméno veterináře", report.getVeterinary().getFullName());
 
-            addRows(tableDescription, "Jméno majitele", report.getAnimal().getOwner().getFullName());
+            if(report.getAnimal() != null && report.getAnimal().getOwner() != null)
+                addRows(tableDescription, "Jméno majitele", report.getAnimal().getOwner().getFullName());
 
-            addRows(tableDescription, "Název diagnozy", report.getDiagnosis().getName());
+            if(report.getDiagnosis() != null )
+                addRows(tableDescription, "Název diagnozy", report.getDiagnosis().getName());
 
             document.add(tableDescription);
 
             PdfPTable pricesTable = new PdfPTable(2);
             addTableHeader(pricesTable, new String[]{"Název", "Cena za jednotku"});
 
-            addRowsConsumable(pricesTable, report.getConsumables());
+            if(report.getConsumables() != null && !report.getConsumables().isEmpty())
+                addRowsConsumable(pricesTable, report.getConsumables());
 
-            addRowsOperation(pricesTable, report.getOperation());
+            if(report.getOperation() != null)
+                addRowsOperation(pricesTable, report.getOperation());
 
-            addRowsMedicines(pricesTable, report.getMedicines());
+            if(report.getMedicines() != null && !report.getMedicines().isEmpty())
+                addRowsMedicines(pricesTable, report.getMedicines());
 
             document.add(pricesTable);
 

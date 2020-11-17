@@ -62,4 +62,14 @@ public class DiagnosisController {
     public ResponseEntity<List<Diagnosis>> getAnimalDiagnosis(@PathVariable int idAnimal){
         return ResponseEntity.ok(diagnosisService.getAnimalDiagnosis(idAnimal));
     }
+
+    @GetMapping
+    public ResponseEntity<List<Diagnosis>> getDiagnoses(){
+        return ResponseEntity.ok(diagnosisService.getDiagnoses());
+    }
+
+    @GetMapping("/{idDiagnosis}")
+    public ResponseEntity<Diagnosis> getDiagnosis(@PathVariable int idDiagnosis){
+        return ResponseEntity.ok(diagnosisService.getDiagnosis(idDiagnosis));
+    }
 }

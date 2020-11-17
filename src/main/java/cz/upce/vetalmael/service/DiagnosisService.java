@@ -16,4 +16,7 @@ public interface DiagnosisService {
     void removeDiagnosis(int idDiagnosis);
     List<Diagnosis> getAnimalDiagnosis(int idAnimal);
 
+    List<Diagnosis> getDiagnoses();
+    Diagnosis getDiagnosis(int idDiagnosis);
+
 }
