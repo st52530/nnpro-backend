@@ -36,10 +36,10 @@ public class Clinic implements Serializable {
     private List<Reservation> reservations = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "clinic")
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClinicMedicine> clinicMedicines = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "clinic")
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClinicConsumable> clinicConsumables = new ArrayList<>();
 }
