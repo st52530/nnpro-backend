@@ -55,7 +55,7 @@ public class Consumable implements Serializable {
     private Date dateOfChange;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "consumable", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "consumable")
     private List<ClinicConsumable> clinicConsumables = new ArrayList<>();
 
     @EqualsAndHashCode.Exclude

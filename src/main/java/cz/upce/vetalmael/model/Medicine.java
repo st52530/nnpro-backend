@@ -56,7 +56,7 @@ public class Medicine implements Serializable {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "medicine", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "medicine")
     private List<ClinicMedicine> clinicMedicines = new ArrayList<>();
 
     @EqualsAndHashCode.Exclude
