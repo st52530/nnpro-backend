@@ -61,6 +61,6 @@ public class Medicine implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @JsonIgnore
-    @ManyToMany(mappedBy = "medicines", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "medicines", cascade = CascadeType.PERSIST)
     private Set<Report> reports = new HashSet<>();
 }
