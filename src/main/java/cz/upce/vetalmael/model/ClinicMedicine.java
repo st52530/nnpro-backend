@@ -21,11 +21,11 @@ public class ClinicMedicine implements Serializable {
     @Column(nullable = false)
     private int quantityInStock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="medicine_id", updatable = false, nullable = false)
     private Medicine medicine;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="clinic_id", updatable = false, nullable = false)
     private Clinic clinic;
 }
