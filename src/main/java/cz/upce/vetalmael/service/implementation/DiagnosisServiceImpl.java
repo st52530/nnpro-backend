@@ -82,4 +82,14 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     public List<Diagnosis> getAnimalDiagnosis(int idAnimal) {
         return reportRepository.findAllByAnimal_IdAnimal(idAnimal).stream().map(Report::getDiagnosis).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Diagnosis> getDiagnoses() {
+        return diagnosisRepository.findAll();
+    }
+
+    @Override
+    public Diagnosis getDiagnosis(int idDiagnosis) {
+        return diagnosisRepository.getOne(idDiagnosis);
+    }
 }
