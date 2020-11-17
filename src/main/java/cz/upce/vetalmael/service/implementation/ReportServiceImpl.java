@@ -4,17 +4,15 @@ import cz.upce.vetalmael.model.*;
 import cz.upce.vetalmael.model.dto.DoneReportDto;
 import cz.upce.vetalmael.model.dto.ReadyReportDto;
 import cz.upce.vetalmael.repository.ReportRepository;
-import cz.upce.vetalmael.service.LoginService;
 import cz.upce.vetalmael.service.ReportService;
 import cz.upce.vetalmael.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.transaction.Transactional;
 
 @Service(value = "reportService")
+@Transactional
 public class ReportServiceImpl implements ReportService {
 
     @Autowired
