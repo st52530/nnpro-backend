@@ -114,4 +114,9 @@ public class ReportServiceImpl implements ReportService {
     public List<Report> getReports() {
         return reportRepository.findAll();
     }
+
+    @Override
+    public void deleteReports() {
+        reportRepository.deleteAll();
+    }
 }
