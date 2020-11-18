@@ -13,4 +13,5 @@ public interface ClinicMedicineService {
     void removeClinicMedicine(int idClinicMedicine);
     ClinicMedicine getClinicMedicine(int idClinic, int idMedicine);
     List<ClinicMedicine> getClinicMedicines(int idClinic);
+    void removeClinicMedicine();
 }

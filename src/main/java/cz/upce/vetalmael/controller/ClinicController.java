@@ -87,6 +87,16 @@ public class ClinicController {
         }
     }
 
+    @DeleteMapping("/clinic-medicine")
+    public ResponseEntity<?> removeClinicMedicine() {
+        try {
+            clinicMedicineService.removeClinicMedicine();
+            return ResponseEntity.noContent().build();
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/{idClinic}/clinic-consumable/consumable/{idConsumable}")
     public ResponseEntity<ClinicConsumable> addConsumableToClinic(@RequestBody ClinicConsumableDto clinicConsumableDto, @PathVariable int idClinic, @PathVariable int idConsumable) {
