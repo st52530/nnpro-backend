@@ -14,4 +14,5 @@ public interface ReportService {
     Report makeReadyReportDone(DoneReportDto reportDto, int idReadyReport, String veterinaryUsername);
     Report editDoneReport(DoneReportDto reportDto, int idReport, String veterinaryUsername);
     List<Report> getReports();
+    void deleteReports();
 }

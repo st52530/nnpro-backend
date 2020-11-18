@@ -69,4 +69,9 @@ public class ReportController {
         User loggedUser = userService.getUserFromAuthenticationPrincipal();
         return ResponseEntity.ok(reportService.editDoneReport(readyReportDto, idDoneReport, loggedUser.getUsername()));
     }
+
+    @DeleteMapping
+    public void deleteReports(){
+        reportService.deleteReports();
+    }
 }
