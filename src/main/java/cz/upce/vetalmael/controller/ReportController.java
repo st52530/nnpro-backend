@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 
 @RestController
@@ -28,6 +30,12 @@ public class ReportController {
 
     @Autowired
     private UserService userService;
+
+
+    @GetMapping
+    public ResponseEntity<List<Report>> getReports() {
+        return ResponseEntity.ok(reportService.getReports());
+    }
 
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/ready")

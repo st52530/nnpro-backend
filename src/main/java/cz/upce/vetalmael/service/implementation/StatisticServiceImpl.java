@@ -29,6 +29,7 @@ public class StatisticServiceImpl implements StatisticService {
             diagnosisStatistic.setDiagnosis(diagnosis);
             long count = allByDiagnosisNotNullOrderByDiagnosis.stream().map(Report::getDiagnosis).filter(diagnosis1 -> diagnosis1.equals(diagnosis)).count();
             diagnosisStatistic.setCount((int) count);
+            diagnosisStatistics.add(diagnosisStatistic);
         });
         return diagnosisStatistics;
     }
