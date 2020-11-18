@@ -3,6 +3,7 @@ package cz.upce.vetalmael.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -35,7 +36,8 @@ public class Report implements Serializable {
     private ReportState reportState;
 
     //Timestamp ještě se podívat
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false, insertable = false)
     private Timestamp date;
 
     @ManyToOne(fetch = FetchType.LAZY)
