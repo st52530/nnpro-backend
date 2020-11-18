@@ -32,10 +32,10 @@ public class ClinicConsumableServiceImpl implements ClinicConsumableService {
 
     @Override
     public ClinicConsumable addQuantityInStock(ClinicConsumableDto clinicConsumableDto, int idClinicConsumable) {
-        ClinicConsumable clinicConsumable = new ClinicConsumable();
+        ClinicConsumable one = clinicConsumableRepository.getOne(idClinicConsumable);
         int quantityInStock = clinicConsumableRepository.getOne(idClinicConsumable).getQuantityInStock();
-        clinicConsumable.setQuantityInStock(clinicConsumableDto.getQuantityInStock()+quantityInStock);
-        return clinicConsumableRepository.save(clinicConsumable);
+        one.setQuantityInStock(clinicConsumableDto.getQuantityInStock()+quantityInStock);
+        return clinicConsumableRepository.save(one);
     }
 
     @Override

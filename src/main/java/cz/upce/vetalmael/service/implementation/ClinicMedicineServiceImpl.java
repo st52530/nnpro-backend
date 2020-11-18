@@ -34,11 +34,10 @@ public class ClinicMedicineServiceImpl implements ClinicMedicineService {
 
     @Override
     public ClinicMedicine addQuantityInStock(ClinicMedicineDto clinicMedicineDto, int idClinicMedicine) {
-        ClinicMedicine clinicMedicine = new ClinicMedicine();
-        clinicMedicine.setIdClinicMedicine(idClinicMedicine);
+        ClinicMedicine one = clinicMedicineRepository.getOne(idClinicMedicine);
         int quantityInStock = clinicMedicineRepository.getOne(idClinicMedicine).getQuantityInStock();
-        clinicMedicine.setQuantityInStock(clinicMedicineDto.getQuantityInStock()+quantityInStock);
-        return clinicMedicineRepository.save(clinicMedicine);
+        one.setQuantityInStock(clinicMedicineDto.getQuantityInStock()+quantityInStock);
+        return clinicMedicineRepository.save(one);
     }
 
     @Override
