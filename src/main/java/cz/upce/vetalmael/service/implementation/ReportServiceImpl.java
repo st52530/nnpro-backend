@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service(value = "reportService")
 @Transactional
@@ -107,5 +108,10 @@ public class ReportServiceImpl implements ReportService {
         Report report = makeReport(reportDto, veterinaryUsername);
         report.setIdReport(idReport);
         return reportRepository.save(report);
+    }
+
+    @Override
+    public List<Report> getReports() {
+        return reportRepository.findAll();
     }
 }
