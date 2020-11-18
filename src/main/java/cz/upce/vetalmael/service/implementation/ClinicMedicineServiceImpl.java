@@ -9,9 +9,11 @@ import cz.upce.vetalmael.service.ClinicMedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service(value = "clinicMedicineService")
+@Transactional
 public class ClinicMedicineServiceImpl implements ClinicMedicineService {
 
     @Autowired
@@ -52,5 +54,10 @@ public class ClinicMedicineServiceImpl implements ClinicMedicineService {
     @Override
     public List<ClinicMedicine> getClinicMedicines(int idClinic) {
         return clinicMedicineRepository.findAllByClinic_IdClinic(idClinic);
+    }
+
+    @Override
+    public void removeClinicMedicine() {
+        clinicMedicineRepository.deleteAll();
     }
 }
