@@ -43,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public User editEmployee(EmployeeDto employeeDto, int idEmployee, int idClinic) {
-        if (employeeDto.getRole() != Role.ADMINISTRATOR || employeeDto.getRole() != Role.CLIENT) {
+        if (employeeDto.getRole() != Role.CLIENT) {
             User employee = new User();
             employee.setIdUser(idEmployee);
             employee.setEmail(employeeDto.getEmail());
@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<User> getEmployees() {
-        return userRepository.findAllByRolesContainingOrRolesContaining(Role.VETERINARY.getAuthority(),Role.VETERINARY_TECHNICIAN.getAuthority());
+        return userRepository.findAll();
     }
 
     @Override
