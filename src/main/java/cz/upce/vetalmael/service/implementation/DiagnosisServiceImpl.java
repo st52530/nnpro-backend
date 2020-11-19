@@ -68,8 +68,16 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
     @Override
     public Diagnosis editDiagnosis(DiagnosisDto diagnosisDto, int idDiagnosis) {
-        Diagnosis diagnosis = modelMapper.map(diagnosisDto, Diagnosis.class);
-        diagnosis.setIdDiagnosis(idDiagnosis);
+        Diagnosis diagnosis = diagnosisRepository.getOne(idDiagnosis);
+
+        diagnosis.setTargetAnimals(diagnosisDto.getTargetAnimals());
+        diagnosis.setType(diagnosisDto.getType());
+        diagnosis.setName(diagnosisDto.getName());
+        diagnosis.setSymptoms(diagnosisDto.getSymptoms());
+        diagnosis.setIncubationPeriod(diagnosisDto.getIncubationPeriod());
+        diagnosis.setTreatment(diagnosisDto.getTreatment());
+        diagnosis.setPrevention(diagnosisDto.getPrevention());
+
         return diagnosisRepository.save(diagnosis);
     }
 

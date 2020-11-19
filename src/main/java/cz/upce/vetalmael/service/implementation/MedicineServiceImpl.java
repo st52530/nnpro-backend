@@ -63,8 +63,18 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public Medicine editMedicine(MedicineDto medicineDto, int idMedicine) {
-        Medicine medicine = modelMapper.map(medicineDto, Medicine.class);
-        medicine.setIdMedicine(idMedicine);
+        Medicine medicine = medicineRepository.getOne(idMedicine);
+
+        medicine.setCode(medicineDto.getCode());
+        medicine.setName(medicineDto.getName());
+        medicine.setSubstances(medicineDto.getSubstances());
+        medicine.setTargetAnimals(medicineDto.getTargetAnimals());
+        medicine.setForm(medicineDto.getForm());
+        medicine.setDateOfApproval(medicineDto.getDateOfApproval());
+        medicine.setNumberOfApproval(medicineDto.getNumberOfApproval());
+        medicine.setApprovalHolder(medicineDto.getApprovalHolder());
+        medicine.setProtectionPeriod(medicineDto.getProtectionPeriod());
+
         return medicineRepository.save(medicine);
     }
 

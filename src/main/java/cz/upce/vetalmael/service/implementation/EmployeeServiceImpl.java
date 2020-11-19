@@ -55,10 +55,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public User editEmployee(EmployeeDto employeeDto, int idEmployee, int idClinic) {
-        if (employeeDto.getRole() == Role.CLIENT) {
-            throw new IllegalArgumentException("Employee cant be client");
-        }
-
         User employee = userRepository.findById(idEmployee).orElse(null);
         if (employee == null) {
             throw new IllegalArgumentException("User not exists");

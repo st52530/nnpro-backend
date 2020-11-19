@@ -35,11 +35,11 @@ public class ReservationController {
 
     @Transactional(rollbackOn = Exception.class)
     @PutMapping("/{idReservation}")
-    public ResponseEntity<Reservation> editReservation(@RequestBody ReservationDto reservationDto, @PathVariable int idReservation) {
+    public ResponseEntity<?> editReservation(@RequestBody ReservationDto reservationDto, @PathVariable int idReservation) {
         try {
             return ResponseEntity.ok(reservationService.editReservation(reservationDto, idReservation));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

@@ -65,8 +65,20 @@ public class ConsumableServiceImpl implements ConsumableService {
 
     @Override
     public Consumable editConsumable(ConsumableDto consumableDto, int idConsumable) {
-        Consumable consumable = modelMapper.map(consumableDto, Consumable.class);
-        consumable.setIdConsumable(idConsumable);
+        Consumable consumable = consumableRepository.getOne(idConsumable);
+
+        consumable.setCode(consumableDto.getCode());
+        consumable.setCountryOfOrigin(consumableDto.getCountryOfOrigin());
+        consumable.setDateOfChange(consumableDto.getDateOfChange());
+        consumable.setDateOfExpiration(consumableDto.getDateOfExpiration());
+        consumable.setGroupType(consumableDto.getGroupType());
+        consumable.setName(consumableDto.getName());
+        consumable.setPrice(consumableDto.getPrice());
+        consumable.setNameAddition(consumableDto.getNameAddition());
+        consumable.setPrescriptionDesignation(consumableDto.getPrescriptionDesignation());
+        consumable.setProducer(consumableDto.getProducer());
+        consumable.setUnitOfMeasure(consumableDto.getUnitOfMeasure());
+
         return consumableRepository.save(consumable);
     }
 

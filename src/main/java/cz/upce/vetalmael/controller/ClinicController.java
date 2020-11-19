@@ -67,11 +67,11 @@ public class ClinicController {
 
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/{idClinic}/clinic-medicine/medicine/{idMedicine}")
-    public ResponseEntity<ClinicMedicine> addMedicineToClinic(@RequestBody ClinicMedicineDto clinicMedicineDto, @PathVariable int idClinic, @PathVariable int idMedicine) {
+    public ResponseEntity<?> addMedicineToClinic(@RequestBody ClinicMedicineDto clinicMedicineDto, @PathVariable int idClinic, @PathVariable int idMedicine) {
         try {
             return ResponseEntity.ok(clinicMedicineService.addClinicMedicine(clinicMedicineDto, idClinic, idMedicine));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -103,11 +103,11 @@ public class ClinicController {
 
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/{idClinic}/clinic-consumable/consumable/{idConsumable}")
-    public ResponseEntity<ClinicConsumable> addConsumableToClinic(@RequestBody ClinicConsumableDto clinicConsumableDto, @PathVariable int idClinic, @PathVariable int idConsumable) {
+    public ResponseEntity<?> addConsumableToClinic(@RequestBody ClinicConsumableDto clinicConsumableDto, @PathVariable int idClinic, @PathVariable int idConsumable) {
         try {
             return ResponseEntity.ok(clinicConsumableService.addClinicConsumable(clinicConsumableDto, idClinic, idConsumable));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
