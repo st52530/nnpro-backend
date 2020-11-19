@@ -26,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public User addEmployee(EmployeeDto employeeDto, int idClinic) {
-        if (employeeDto.getRole() != Role.ADMINISTRATOR || employeeDto.getRole() != Role.CLIENT) {
+        if (employeeDto.getRole() != Role.CLIENT) {
             User employee = new User();
             employee.setEmail(employeeDto.getEmail());
             employee.setUsername(employeeDto.getUsername());
@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setWorkplace(clinic);
             return userRepository.save(employee);
         }
-        return null;
+        throw new IllegalArgumentException("Employee cant be client");
     }
 
     @Override
@@ -56,8 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setWorkplace(clinic);
             return userRepository.save(employee);
         }
-        return null;
-
+        throw new IllegalArgumentException("Employee cant be client");
     }
 
     @Override
