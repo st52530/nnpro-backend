@@ -9,11 +9,16 @@ import cz.upce.vetalmael.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Date;
 import java.util.List;
 
 @Service("reservationService")
 public class ReservationServiceImpl implements ReservationService {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private ReservationRepository reservationRepository;
@@ -23,10 +28,10 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = new Reservation();
         reservation.setDate(reservationDto.getDate());
         checkDate(reservation);
-        User client = new User();
+        User client = entityManager.getReference(User.class, idClient);
         client.setIdUser(idClient);
         reservation.setClient(client);
-        Clinic clinic = new Clinic();
+        Clinic clinic = entityManager.getReference(Clinic.class, idClinic);
         clinic.setIdClinic(idClinic);
         reservation.setClinic(clinic);
         return reservationRepository.save(reservation);

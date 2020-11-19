@@ -8,16 +8,22 @@ import cz.upce.vetalmael.model.dto.AnimalDto;
 import cz.upce.vetalmael.repository.AnimalRepository;
 import cz.upce.vetalmael.repository.MessageRepository;
 import cz.upce.vetalmael.repository.ReportRepository;
+import cz.upce.vetalmael.repository.UserRepository;
 import cz.upce.vetalmael.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service(value = "animalService")
 @Transactional
 public class AnimalServiceImpl implements AnimalService {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private AnimalRepository animalRepository;
@@ -28,12 +34,12 @@ public class AnimalServiceImpl implements AnimalService {
     @Autowired
     private ReportRepository reportRepository;
 
+
     @Override
     public Animal addAnimal(AnimalDto animalDto, int idUser) {
         Animal animal = new Animal();
         animal.setName(animalDto.getName());
-        User user = new User();
-        user.setIdUser(idUser);
+        User user = entityManager.getReference(User.class, idUser);
         animal.setOwner(user);
         return animalRepository.save(animal);
     }
@@ -42,8 +48,7 @@ public class AnimalServiceImpl implements AnimalService {
     public Animal editAnimal(AnimalDto animalDto, int idAnimal, int idUser) {
         Animal animal = animalRepository.getOne(idAnimal);
         animal.setName(animalDto.getName());
-        User user = new User();
-        user.setIdUser(idUser);
+        User user = entityManager.getReference(User.class, idUser);
         animal.setOwner(user);
         return animalRepository.save(animal);
     }

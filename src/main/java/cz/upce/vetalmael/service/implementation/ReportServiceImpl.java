@@ -6,15 +6,21 @@ import cz.upce.vetalmael.model.dto.ReadyReportDto;
 import cz.upce.vetalmael.repository.ReportRepository;
 import cz.upce.vetalmael.service.ReportService;
 import cz.upce.vetalmael.service.UserService;
+import jdk.jshell.Diag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service(value = "reportService")
 @Transactional
 public class ReportServiceImpl implements ReportService {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private ReportRepository reportRepository;
@@ -27,8 +33,7 @@ public class ReportServiceImpl implements ReportService {
         Report report = new Report();
         report.setTextDescription(reportDto.getTextDescription());
         report.setReportState(ReportState.READY);
-        Animal animal = new Animal();
-        animal.setIdAnimal(reportDto.getIdAnimal());
+        Animal animal = entityManager.getReference(Animal.class, reportDto.getIdAnimal());
         report.setAnimal(animal);
         return reportRepository.save(report);
     }
@@ -38,8 +43,7 @@ public class ReportServiceImpl implements ReportService {
         Report report = reportRepository.getOne(idReport);
         report.setTextDescription(reportDto.getTextDescription());
         report.setReportState(ReportState.READY);
-        Animal animal = new Animal();
-        animal.setIdAnimal(reportDto.getIdAnimal());
+        Animal animal = entityManager.getReference(Animal.class, reportDto.getIdAnimal());
         report.setAnimal(animal);
         return reportRepository.save(report);
     }
@@ -58,34 +62,29 @@ public class ReportServiceImpl implements ReportService {
         report.setTextDescription(reportDto.getTextDescription());
         report.setReportState(ReportState.DONE);
 
-        Animal animal = new Animal();
-        animal.setIdAnimal(reportDto.getIdAnimal());
+        Animal animal = entityManager.getReference(Animal.class, reportDto.getIdAnimal());
         report.setAnimal(animal);
 
         if(reportDto.getIdDiagnosis() != null) {
-            Diagnosis diagnosis = new Diagnosis();
-            diagnosis.setIdDiagnosis(reportDto.getIdDiagnosis());
+            Diagnosis diagnosis = entityManager.getReference(Diagnosis.class, reportDto.getIdDiagnosis());
             report.setDiagnosis(diagnosis);
         }
 
         if(reportDto.getIdOperation() != null) {
-            Operation operation = new Operation();
-            operation.setIdOperation(reportDto.getIdOperation());
+            Operation operation = entityManager.getReference(Operation.class, reportDto.getIdOperation());
             report.setOperation(operation);
         }
 
         if(reportDto.getSetOfIdMedicines() != null) {
             reportDto.getSetOfIdMedicines().forEach(idMedicine -> {
-                Medicine medicine = new Medicine();
-                medicine.setIdMedicine(idMedicine);
+                Medicine medicine = entityManager.getReference(Medicine.class, idMedicine);
                 report.getMedicines().add(medicine);
             });
         }
 
         if(reportDto.getSetOfIdConsumables() != null) {
             reportDto.getSetOfIdConsumables().forEach(idConsumable -> {
-                Consumable consumable = new Consumable();
-                consumable.setIdConsumable(idConsumable);
+                Consumable consumable = entityManager.getReference(Consumable.class, idConsumable);
                 report.getConsumables().add(consumable);
             });
         }

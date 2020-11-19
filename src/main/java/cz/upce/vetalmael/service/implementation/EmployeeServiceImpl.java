@@ -12,11 +12,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service(value = "employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
 
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private UserRepository userRepository;
@@ -33,8 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setFullName(employeeDto.getFullName());
             employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
             employee.setRoles(employeeDto.getRole().toString());
-            Clinic clinic = new Clinic();
-            clinic.setIdClinic(idClinic);
+            Clinic clinic = entityManager.getReference(Clinic.class, idClinic);
             employee.setWorkplace(clinic);
             return userRepository.save(employee);
         }
@@ -50,8 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setFullName(employeeDto.getFullName());
             employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
             employee.setRoles(employeeDto.getRole().toString());
-            Clinic clinic = new Clinic();
-            clinic.setIdClinic(idClinic);
+            Clinic clinic = entityManager.getReference(Clinic.class, idClinic);
             employee.setWorkplace(clinic);
             return userRepository.save(employee);
         }
