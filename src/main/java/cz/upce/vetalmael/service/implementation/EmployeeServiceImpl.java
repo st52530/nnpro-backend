@@ -11,6 +11,7 @@ import cz.upce.vetalmael.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -28,9 +29,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public User addEmployee(EmployeeDto employeeDto, int idClinic) {
         if (employeeDto.getRole() == Role.CLIENT) {
             throw new IllegalArgumentException("Employee cant be client");
@@ -53,21 +53,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public User editEmployee(EmployeeDto employeeDto, int idEmployee, int idClinic) {
-        if (employeeDto.getRole() != Role.ADMINISTRATOR || employeeDto.getRole() != Role.CLIENT) {
-            User employee = new User();
-            employee.setIdUser(idEmployee);
-            employee.setEmail(employeeDto.getEmail());
-            employee.setUsername(employeeDto.getUsername());
-            employee.setFullName(employeeDto.getFullName());
-            employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
-            employee.setRoles(employeeDto.getRole().toString());
-            Clinic clinic = new Clinic();
-            clinic.setIdClinic(idClinic);
-            employee.setWorkplace(clinic);
-            return userRepository.save(employee);
+        if (employeeDto.getRole() == Role.CLIENT) {
+            throw new IllegalArgumentException("Employee cant be client");
         }
-        throw new IllegalArgumentException("Employee cant be client");
+
+        User employee = userRepository.findById(idEmployee).orElse(null);
+        if (employee == null) {
+            throw new IllegalArgumentException("User not exists");
+        }
+        employee.setEmail(employeeDto.getEmail());
+        employee.setUsername(employeeDto.getUsername());
+        employee.setFullName(employeeDto.getFullName());
+        employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
+        employee.setRoles(employeeDto.getRole().toString());
+        Clinic clinic = clinicService.getClinic(idClinic);
+        if (clinic == null) {
+            throw new IllegalArgumentException("Clinic not exists");
+        }
+        employee.setWorkplace(clinic);
+        return userRepository.save(employee);
     }
 
     @Override
@@ -82,7 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<User> getEmployees() {
-        return userRepository.findAllByRolesContainingOrRolesContainingOrRolesContaining(Role.VETERINARY.getAuthority(),Role.VETERINARY_TECHNICIAN.getAuthority(), Role.ADMINISTRATOR.getAuthority());
+        return userRepository.findAllByRolesContainingOrRolesContainingOrRolesContaining(Role.VETERINARY.getAuthority(), Role.VETERINARY_TECHNICIAN.getAuthority(), Role.ADMINISTRATOR.getAuthority());
     }
 
     @Override
