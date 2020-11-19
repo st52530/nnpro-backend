@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ClinicMedicineService {
 
-    ClinicMedicine addClinicMedicine(ClinicMedicineDto clinicMedicineDto, int idClinic, int idMedicine);
-    ClinicMedicine addQuantityInStock(ClinicMedicineDto clinicMedicineDto, int idClinicMedicine);
+    ClinicMedicine addClinicMedicine(ClinicMedicineDto clinicMedicineDto, int idClinic, int idMedicine) throws Exception;
+    ClinicMedicine editClinicMedicine(ClinicMedicineDto clinicMedicineDto, int idClinicMedicine);
     void removeClinicMedicine(int idClinicMedicine);
     ClinicMedicine getClinicMedicine(int idClinic, int idMedicine);
     List<ClinicMedicine> getClinicMedicines(int idClinic);

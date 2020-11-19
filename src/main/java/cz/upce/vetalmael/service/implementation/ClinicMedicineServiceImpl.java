@@ -20,23 +20,25 @@ public class ClinicMedicineServiceImpl implements ClinicMedicineService {
     private ClinicMedicineRepository clinicMedicineRepository;
 
     @Override
-    public ClinicMedicine addClinicMedicine(ClinicMedicineDto clinicMedicineDto, int idClinic, int idMedicine) {
+    public ClinicMedicine addClinicMedicine(ClinicMedicineDto clinicMedicineDto, int idClinic, int idMedicine) throws Exception{
         ClinicMedicine clinicMedicine = new ClinicMedicine();
-        clinicMedicine.setQuantityInStock(clinicMedicineDto.getQuantityInStock());
-        Clinic clinic = new Clinic();
-        clinic.setIdClinic(idClinic);
-        Medicine medicine = new Medicine();
-        medicine.setIdMedicine(idMedicine);
-        clinicMedicine.setClinic(clinic);
-        clinicMedicine.setMedicine(medicine);
-        return clinicMedicineRepository.save(clinicMedicine);
+        if (clinicMedicineRepository.countAllByClinic_IdClinicAndMedicine_IdMedicine(idClinic, idMedicine) == 0) {
+            clinicMedicine.setQuantityInStock(clinicMedicineDto.getQuantityInStock());
+            Clinic clinic = new Clinic();
+            clinic.setIdClinic(idClinic);
+            Medicine medicine = new Medicine();
+            medicine.setIdMedicine(idMedicine);
+            clinicMedicine.setClinic(clinic);
+            clinicMedicine.setMedicine(medicine);
+            return clinicMedicineRepository.save(clinicMedicine);
+        }
+        throw new Exception("Can't add same medicine to clinic");
     }
 
     @Override
-    public ClinicMedicine addQuantityInStock(ClinicMedicineDto clinicMedicineDto, int idClinicMedicine) {
+    public ClinicMedicine editClinicMedicine(ClinicMedicineDto clinicMedicineDto, int idClinicMedicine) {
         ClinicMedicine one = clinicMedicineRepository.getOne(idClinicMedicine);
-        int quantityInStock = clinicMedicineRepository.getOne(idClinicMedicine).getQuantityInStock();
-        one.setQuantityInStock(clinicMedicineDto.getQuantityInStock()+quantityInStock);
+        one.setQuantityInStock(clinicMedicineDto.getQuantityInStock());
         return clinicMedicineRepository.save(one);
     }
 
@@ -47,7 +49,7 @@ public class ClinicMedicineServiceImpl implements ClinicMedicineService {
 
     @Override
     public ClinicMedicine getClinicMedicine(int idClinic, int idMedicine) {
-        return clinicMedicineRepository.findByClinic_IdClinicAndMedicine_IdMedicine(idClinic,idMedicine);
+        return clinicMedicineRepository.findByClinic_IdClinicAndMedicine_IdMedicine(idClinic, idMedicine);
     }
 
     @Override

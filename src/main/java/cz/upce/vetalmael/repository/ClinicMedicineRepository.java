@@ -10,5 +10,7 @@ public interface ClinicMedicineRepository extends JpaRepository<ClinicMedicine,I
 
     ClinicMedicine findByClinic_IdClinicAndMedicine_IdMedicine(int idClinic, int idMedicine);
 
+    int countAllByClinic_IdClinicAndMedicine_IdMedicine(int idClinic, int idMedicine);
+
     List<ClinicMedicine> findAllByClinic_IdClinic(int idClinic);
 }
