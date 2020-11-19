@@ -9,5 +9,7 @@ public interface ClinicConsumableRepository extends JpaRepository<ClinicConsumab
 
     ClinicConsumable findByClinic_IdClinicAndConsumable_IdConsumable(int idClinic, int idConsumable);
 
+    int countAllByClinic_IdClinicAndConsumable_IdConsumable(int idClinic, int idConsumable);
+
     List<ClinicConsumable> findAllByClinic_IdClinic(int idClinic);
 }
