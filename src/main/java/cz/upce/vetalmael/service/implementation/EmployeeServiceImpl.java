@@ -6,6 +6,7 @@ import cz.upce.vetalmael.model.Role;
 import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.EmployeeDto;
 import cz.upce.vetalmael.repository.UserRepository;
+import cz.upce.vetalmael.service.ClinicService;
 import cz.upce.vetalmael.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,23 +23,33 @@ public class EmployeeServiceImpl implements EmployeeService {
     private UserRepository userRepository;
 
     @Autowired
+    private ClinicService clinicService;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
 
     @Override
     public User addEmployee(EmployeeDto employeeDto, int idClinic) {
-        if (employeeDto.getRole() != Role.ADMINISTRATOR || employeeDto.getRole() != Role.CLIENT) {
-            User employee = new User();
-            employee.setEmail(employeeDto.getEmail());
-            employee.setUsername(employeeDto.getUsername());
-            employee.setFullName(employeeDto.getFullName());
-            employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
-            employee.setRoles(employeeDto.getRole().toString());
-            Clinic clinic = new Clinic();
-            clinic.setIdClinic(idClinic);
-            employee.setWorkplace(clinic);
-            return userRepository.save(employee);
+        if (employeeDto.getRole() == Role.CLIENT) {
+            throw new IllegalArgumentException("Employee cant be client");
         }
-        throw new IllegalArgumentException("Employee cant be client");
+
+        User employee = new User();
+        employee.setEmail(employeeDto.getEmail());
+        employee.setUsername(employeeDto.getUsername());
+        employee.setFullName(employeeDto.getFullName());
+        employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
+        employee.setRoles(employeeDto.getRole().toString());
+        Clinic clinic = clinicService.getClinic(idClinic);
+        if (clinic == null) {
+            throw new IllegalArgumentException("Clinic not exists");
+        }
+
+        employee.setWorkplace(clinic);
+        return userRepository.save(employee);
+
     }
 
     @Override
