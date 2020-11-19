@@ -26,13 +26,21 @@ public class ReservationController {
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/clinic/{idClinic}/client/{idClient}")
     public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDto reservationDto, @PathVariable int idClinic, @PathVariable int idClient) {
-        return ResponseEntity.ok(reservationService.addReservation(reservationDto, idClinic, idClient));
+        try {
+            return ResponseEntity.ok(reservationService.addReservation(reservationDto, idClinic, idClient));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @Transactional(rollbackOn = Exception.class)
     @PutMapping("/{idReservation}")
     public ResponseEntity<Reservation> editReservation(@RequestBody ReservationDto reservationDto, @PathVariable int idReservation) {
-        return ResponseEntity.ok(reservationService.editReservation(reservationDto, idReservation));
+        try {
+            return ResponseEntity.ok(reservationService.editReservation(reservationDto, idReservation));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{idReservation}")
