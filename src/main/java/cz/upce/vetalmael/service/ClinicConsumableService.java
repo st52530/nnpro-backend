@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ClinicConsumableService {
 
-    ClinicConsumable addClinicConsumable(ClinicConsumableDto clinicConsumableDto, int idClinic, int idConsumable);
-    ClinicConsumable addQuantityInStock(ClinicConsumableDto clinicConsumableDto, int idClinicConsumable);
+    ClinicConsumable addClinicConsumable(ClinicConsumableDto clinicConsumableDto, int idClinic, int idConsumable) throws Exception;
+    ClinicConsumable editClinicConsumable(ClinicConsumableDto clinicConsumableDto, int idClinicConsumable);
     void removeClinicConsumable(int idClinicConsumable);
     ClinicConsumable getClinicConsumable(int idClinic, int idConsumable);
     List<ClinicConsumable> getClinicConsumables(int idClinic);

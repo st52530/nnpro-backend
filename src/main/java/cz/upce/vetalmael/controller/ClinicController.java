@@ -68,13 +68,17 @@ public class ClinicController {
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/{idClinic}/clinic-medicine/medicine/{idMedicine}")
     public ResponseEntity<ClinicMedicine> addMedicineToClinic(@RequestBody ClinicMedicineDto clinicMedicineDto, @PathVariable int idClinic, @PathVariable int idMedicine) {
-        return ResponseEntity.ok(clinicMedicineService.addClinicMedicine(clinicMedicineDto, idClinic, idMedicine));
+        try {
+            return ResponseEntity.ok(clinicMedicineService.addClinicMedicine(clinicMedicineDto, idClinic, idMedicine));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @Transactional(rollbackOn = Exception.class)
     @PutMapping("/clinic-medicine/{idClinicMedicine}")
     public ResponseEntity<ClinicMedicine> addMedicineQuantityInStock(@RequestBody ClinicMedicineDto clinicMedicineDto, @PathVariable int idClinicMedicine){
-        return ResponseEntity.ok(clinicMedicineService.addQuantityInStock(clinicMedicineDto, idClinicMedicine));
+        return ResponseEntity.ok(clinicMedicineService.editClinicMedicine(clinicMedicineDto, idClinicMedicine));
     }
 
     @DeleteMapping("/clinic-medicine/{idClinicMedicine}")
@@ -100,13 +104,17 @@ public class ClinicController {
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("/{idClinic}/clinic-consumable/consumable/{idConsumable}")
     public ResponseEntity<ClinicConsumable> addConsumableToClinic(@RequestBody ClinicConsumableDto clinicConsumableDto, @PathVariable int idClinic, @PathVariable int idConsumable) {
-        return ResponseEntity.ok(clinicConsumableService.addClinicConsumable(clinicConsumableDto, idClinic, idConsumable));
+        try {
+            return ResponseEntity.ok(clinicConsumableService.addClinicConsumable(clinicConsumableDto, idClinic, idConsumable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @Transactional(rollbackOn = Exception.class)
     @PutMapping("/clinic-consumable/{idClinicConsumable}")
     public ResponseEntity<ClinicConsumable> addConsumableQuantityInStock(@RequestBody ClinicConsumableDto clinicConsumableDto, @PathVariable int idClinicConsumable){
-        return ResponseEntity.ok(clinicConsumableService.addQuantityInStock(clinicConsumableDto, idClinicConsumable));
+        return ResponseEntity.ok(clinicConsumableService.editClinicConsumable(clinicConsumableDto, idClinicConsumable));
     }
 
     @DeleteMapping("/clinic-consumable/{idClinicConsumable}")
