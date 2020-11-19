@@ -44,8 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Reservation editReservation(ReservationDto reservationDto, int idReservation) throws Exception {
-        Reservation reservation = new Reservation();
-        reservation.setIdReservation(idReservation);
+        Reservation reservation = reservationRepository.getOne(idReservation);
         reservation.setDate(reservationDto.getDate());
         checkDate(reservation);
         return reservationRepository.save(reservation);

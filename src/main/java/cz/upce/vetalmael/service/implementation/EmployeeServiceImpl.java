@@ -44,8 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public User editEmployee(EmployeeDto employeeDto, int idEmployee, int idClinic) {
         if (employeeDto.getRole() != Role.ADMINISTRATOR || employeeDto.getRole() != Role.CLIENT) {
-            User employee = new User();
-            employee.setIdUser(idEmployee);
+            User employee = userRepository.getOne(idEmployee);
             employee.setEmail(employeeDto.getEmail());
             employee.setUsername(employeeDto.getUsername());
             employee.setFullName(employeeDto.getFullName());

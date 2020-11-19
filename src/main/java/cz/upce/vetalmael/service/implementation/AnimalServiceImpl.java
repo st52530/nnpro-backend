@@ -12,9 +12,11 @@ import cz.upce.vetalmael.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service(value = "animalService")
+@Transactional
 public class AnimalServiceImpl implements AnimalService {
 
     @Autowired
@@ -38,8 +40,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public Animal editAnimal(AnimalDto animalDto, int idAnimal, int idUser) {
-        Animal animal = new Animal();
-        animal.setIdAnimal(idAnimal);
+        Animal animal = animalRepository.getOne(idAnimal);
         animal.setName(animalDto.getName());
         User user = new User();
         user.setIdUser(idUser);

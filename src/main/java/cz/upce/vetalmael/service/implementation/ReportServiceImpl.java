@@ -35,8 +35,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report editReadyReport(ReadyReportDto reportDto, int idReport) {
-        Report report = new Report();
-        report.setIdReport(idReport);
+        Report report = reportRepository.getOne(idReport);
         report.setTextDescription(reportDto.getTextDescription());
         report.setReportState(ReportState.READY);
         Animal animal = new Animal();
