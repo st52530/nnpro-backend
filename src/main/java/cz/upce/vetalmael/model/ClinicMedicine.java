@@ -8,7 +8,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "clinic_medicine")
+@Table(name = "clinic_medicine", uniqueConstraints={
+        @UniqueConstraint(columnNames = {"medicine_id", "clinic_id"})
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
