@@ -4,6 +4,7 @@ import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Reservation;
 import cz.upce.vetalmael.model.Role;
 import cz.upce.vetalmael.model.User;
+import cz.upce.vetalmael.model.dto.ClientDto;
 import cz.upce.vetalmael.model.dto.SignInDto;
 import cz.upce.vetalmael.model.dto.SingUpDto;
 import cz.upce.vetalmael.repository.AnimalRepository;
@@ -37,7 +38,7 @@ public class ClientServiceImpl implements ClientService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public User addClient(SingUpDto user){
+    public User addClient(SingUpDto user) {
         User dbUser = new User();
         dbUser.setEmail(user.getEmail());
         dbUser.setUsername(user.getUsername());
@@ -45,6 +46,18 @@ public class ClientServiceImpl implements ClientService {
         dbUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         dbUser.setRoles(Role.CLIENT.getAuthority());
         return userRepository.save(dbUser);
+    }
+
+    @Override
+    public User editClient(ClientDto client, int idClient) {
+        User user = userRepository.getOne(idClient);
+        if(client.getEmail() != null){
+            user.setEmail(client.getEmail());
+        }
+        if(client.getFullName() != null){
+            user.setFullName(client.getFullName());
+        }
+        return userRepository.save(user);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package cz.upce.vetalmael.controller;
 
 import cz.upce.vetalmael.model.*;
+import cz.upce.vetalmael.model.dto.ClientDto;
 import cz.upce.vetalmael.model.dto.SingUpDto;
 import cz.upce.vetalmael.service.ClientService;
 import cz.upce.vetalmael.service.UserService;
@@ -30,6 +31,13 @@ public class ClientController {
     //@SecurityRequirement(name = SWAGGER_AUTH_KEY)
     public ResponseEntity<User> signUp(@RequestBody SingUpDto user) {
         return ResponseEntity.ok(clientService.addClient(user));
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    @PutMapping("/{idClient}")
+    @SecurityRequirement(name = SWAGGER_AUTH_KEY)
+    public ResponseEntity<User> editClient(@RequestBody ClientDto clientDto, @PathVariable int idClient) {
+        return ResponseEntity.ok(clientService.editClient(clientDto, idClient));
     }
 
     @GetMapping("/animals")
