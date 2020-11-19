@@ -7,12 +7,17 @@ import cz.upce.vetalmael.service.ClinicConsumableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service(value = "clinicConsumableService")
 @Transactional
 public class ClinicConsumableServiceImpl implements ClinicConsumableService {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private ClinicConsumableRepository clinicConsumableRepository;
@@ -22,9 +27,9 @@ public class ClinicConsumableServiceImpl implements ClinicConsumableService {
         ClinicConsumable clinicConsumable = new ClinicConsumable();
         if(clinicConsumableRepository.countAllByClinic_IdClinicAndConsumable_IdConsumable(idClinic,idConsumable) == 0) {
             clinicConsumable.setQuantityInStock(clinicConsumableDto.getQuantityInStock());
-            Clinic clinic = new Clinic();
+            Clinic clinic = entityManager.getReference(Clinic.class, idClinic);
             clinic.setIdClinic(idClinic);
-            Consumable consumable = new Consumable();
+            Consumable consumable = entityManager.getReference(Consumable.class, idConsumable);
             consumable.setIdConsumable(idConsumable);
             clinicConsumable.setClinic(clinic);
             clinicConsumable.setConsumable(consumable);

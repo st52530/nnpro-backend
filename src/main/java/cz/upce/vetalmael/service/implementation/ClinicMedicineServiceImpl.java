@@ -9,12 +9,17 @@ import cz.upce.vetalmael.service.ClinicMedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service(value = "clinicMedicineService")
 @Transactional
 public class ClinicMedicineServiceImpl implements ClinicMedicineService {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private ClinicMedicineRepository clinicMedicineRepository;
@@ -24,9 +29,9 @@ public class ClinicMedicineServiceImpl implements ClinicMedicineService {
         ClinicMedicine clinicMedicine = new ClinicMedicine();
         if (clinicMedicineRepository.countAllByClinic_IdClinicAndMedicine_IdMedicine(idClinic, idMedicine) == 0) {
             clinicMedicine.setQuantityInStock(clinicMedicineDto.getQuantityInStock());
-            Clinic clinic = new Clinic();
+            Clinic clinic = entityManager.getReference(Clinic.class, idClinic);
             clinic.setIdClinic(idClinic);
-            Medicine medicine = new Medicine();
+            Medicine medicine = entityManager.getReference(Medicine.class, idMedicine);
             medicine.setIdMedicine(idMedicine);
             clinicMedicine.setClinic(clinic);
             clinicMedicine.setMedicine(medicine);

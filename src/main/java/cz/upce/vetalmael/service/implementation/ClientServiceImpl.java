@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -24,6 +26,9 @@ import java.util.List;
 @Service(value = "clientService")
 @Transactional
 public class ClientServiceImpl implements ClientService {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private UserRepository userRepository;
