@@ -8,10 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
 @Service(value = "clinicService")
+@Transactional
 public class ClinicServiceImpl implements ClinicService {
 
     @Autowired
@@ -29,8 +31,9 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     public Clinic editClinic(ClinicDto clinicDto, int idClinic) {
-        Clinic clinic = modelMapper.map(clinicDto, Clinic.class);
-        clinic.setIdClinic(idClinic);
+        Clinic clinic = clinicRepository.getOne(idClinic);
+        clinic.setAddress(clinicDto.getAddress());
+        clinic.setName(clinicDto.getName());
         return clinicRepository.save(clinic);
     }
 
