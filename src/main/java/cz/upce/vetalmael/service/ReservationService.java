@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ReservationService {
 
-    Reservation addReservation(ReservationDto reservationDto, int idClinic, int idClient);
-    Reservation editReservation(ReservationDto reservationDto, int idReservation);
+    Reservation addReservation(ReservationDto reservationDto, int idClinic, int idClient) throws Exception;
+    Reservation editReservation(ReservationDto reservationDto, int idReservation) throws Exception;
     void removeReservation(int idReservation);
     List<Reservation> getAllReservations();
 }

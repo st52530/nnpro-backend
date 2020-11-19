@@ -9,6 +9,7 @@ import cz.upce.vetalmael.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("reservationService")
@@ -18,9 +19,10 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationRepository reservationRepository;
 
     @Override
-    public Reservation addReservation(ReservationDto reservationDto, int idClinic, int idClient) {
+    public Reservation addReservation(ReservationDto reservationDto, int idClinic, int idClient) throws Exception {
         Reservation reservation = new Reservation();
         reservation.setDate(reservationDto.getDate());
+        checkDate(reservation);
         User client = new User();
         client.setIdUser(idClient);
         reservation.setClient(client);
@@ -30,11 +32,22 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.save(reservation);
     }
 
+    private void checkDate(Reservation reservation) throws Exception {
+        long tenMinutes = 600000;
+        Date start = new Date(reservation.getDate().getTime()-tenMinutes);
+        Date end = new Date(reservation.getDate().getTime()+tenMinutes);
+        int count = reservationRepository.countAllByDateGreaterThanAndDateLessThan(start, end);
+        if(count > 0){
+            throw new Exception("Time already booked");
+        }
+    }
+
     @Override
-    public Reservation editReservation(ReservationDto reservationDto, int idReservation) {
+    public Reservation editReservation(ReservationDto reservationDto, int idReservation) throws Exception {
         Reservation reservation = new Reservation();
         reservation.setIdReservation(idReservation);
         reservation.setDate(reservationDto.getDate());
+        checkDate(reservation);
         return reservationRepository.save(reservation);
     }
 
