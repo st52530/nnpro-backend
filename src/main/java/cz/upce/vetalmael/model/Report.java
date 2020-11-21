@@ -35,7 +35,6 @@ public class Report implements Serializable {
     @Column(nullable = false)
     private ReportState reportState;
 
-    //Timestamp ještě se podívat
     @CreationTimestamp
     @Column(nullable = false, updatable = false, insertable = false)
     private Timestamp date;
