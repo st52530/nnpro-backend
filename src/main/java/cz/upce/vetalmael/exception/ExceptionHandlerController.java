@@ -1,7 +1,5 @@
 package cz.upce.vetalmael.exception;
 
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,7 +20,7 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
         errors.setError(ex.getMessage());
         errors.setStatus(HttpStatus.BAD_REQUEST.value());
 
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ValidationException.class)

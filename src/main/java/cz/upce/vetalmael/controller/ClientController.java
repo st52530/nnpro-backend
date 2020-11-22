@@ -53,6 +53,12 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getAnimals(idClient));
     }
 
+    @GetMapping("/{idClient}/reports")
+    @SecurityRequirement(name = SWAGGER_AUTH_KEY)
+    public ResponseEntity<List<Report>> getClientReports(@PathVariable int idClient){
+        return ResponseEntity.ok(clientService.getReports(idClient));
+    }
+
     @GetMapping("/{idClient}/reservations")
     @SecurityRequirement(name = SWAGGER_AUTH_KEY)
     public ResponseEntity<List<Reservation>> getReservations(@PathVariable int idClient){

@@ -1,13 +1,12 @@
 package cz.upce.vetalmael.service.implementation;
 
-import cz.upce.vetalmael.model.Animal;
-import cz.upce.vetalmael.model.Reservation;
-import cz.upce.vetalmael.model.Role;
-import cz.upce.vetalmael.model.User;
+import cz.upce.vetalmael.exception.ValidationException;
+import cz.upce.vetalmael.model.*;
 import cz.upce.vetalmael.model.dto.ClientDto;
 import cz.upce.vetalmael.model.dto.SignInDto;
 import cz.upce.vetalmael.model.dto.SingUpDto;
 import cz.upce.vetalmael.repository.AnimalRepository;
+import cz.upce.vetalmael.repository.ReportV2Repository;
 import cz.upce.vetalmael.repository.ReservationRepository;
 import cz.upce.vetalmael.repository.UserRepository;
 import cz.upce.vetalmael.service.ClientService;
@@ -42,6 +41,9 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private ReportV2Repository reportV2Repository;
+
     @Override
     public User addClient(SingUpDto user) {
         User dbUser = new User();
@@ -68,6 +70,15 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Animal> getAnimals(int idUser) {
         return animalRepository.findAllByOwner_idUser(idUser);
+    }
+
+    @Override
+    public List<Report> getReports(int idUser) {
+        User user = getClient(idUser);
+        if (user == null) {
+            throw new ValidationException("User " + idUser + " not exists");
+        }
+        return reportV2Repository.findAllByAnimal_Owner(user);
     }
 
     @Override
