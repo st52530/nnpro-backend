@@ -31,7 +31,7 @@ public class ReportV2Controller {
     private AnimalService animalService;
 
     @GetMapping
-    public List<Report> getReports(@RequestParam(name = "clientId", required = false) Integer clinicId,
+    public List<Report> getReports(@RequestParam(name = "clinicId", required = false) Integer clinicId,
                                    @RequestParam(name = "animalId", required = false) Integer animalId,
                                    @RequestParam(name = "state", required = false) ReportState state) {
 
@@ -64,7 +64,7 @@ public class ReportV2Controller {
         return reportService.createNewReport(report);
     }
 
-    @PutMapping(value = "/{id}")
+    @PostMapping(value = "/{id}/finish")
     public Report finishReport(@PathVariable("id") Integer reportId,@RequestBody Report report) {
         return reportService.finishReport(reportId,report);
     }
