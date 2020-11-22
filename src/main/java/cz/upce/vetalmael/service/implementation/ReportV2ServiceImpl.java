@@ -81,7 +81,7 @@ public class ReportV2ServiceImpl implements ReportV2Service {
             throw new ValidationException("Veterinary is null");
         }
         Integer animalId = report.getAnimal().getIdAnimal();
-        Integer veterinaryId = report.getAnimal().getIdAnimal();
+        Integer veterinaryId = report.getVeterinary().getIdUser();
 
         User veterinary = employeeService.getEmployee(veterinaryId);
         if (veterinary == null) {
