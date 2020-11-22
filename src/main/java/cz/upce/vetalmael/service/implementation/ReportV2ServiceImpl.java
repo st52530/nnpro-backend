@@ -51,6 +51,15 @@ public class ReportV2ServiceImpl implements ReportV2Service {
     }
 
     @Override
+    public Report getReport(Integer id) {
+        Report report = reportV2Repository.findById(id).orElse(null);
+        if (report == null) {
+            throw new ValidationException("Report " + id + " not exists");
+        }
+        return report;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public List<Report> getReports(Clinic clinic, ReportState state) {
         return reportV2Repository.findAllByVeterinary_WorkplaceAndReportState(clinic, state);
