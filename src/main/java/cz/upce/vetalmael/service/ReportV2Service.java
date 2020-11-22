@@ -10,6 +10,8 @@ import java.util.List;
 public interface ReportV2Service {
     List<Report> getReports();
 
+    Report getReport(Integer id);
+
     List<Report> getReports(Clinic clinic, ReportState state);
 
     List<Report> getReports(Animal animal, ReportState state);

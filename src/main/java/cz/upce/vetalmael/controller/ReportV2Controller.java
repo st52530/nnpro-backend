@@ -54,6 +54,11 @@ public class ReportV2Controller {
         return reportService.getReports();
     }
 
+    @GetMapping(value = "/{id}")
+    public Report getReport(@PathVariable("id") Integer id) {
+        return reportService.getReport(id);
+    }
+
     @PostMapping
     public Report createNewReport(@RequestBody Report report) {
         return reportService.createNewReport(report);
