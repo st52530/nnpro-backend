@@ -87,9 +87,6 @@ public class ReportV2ServiceImpl implements ReportV2Service {
         if (veterinary == null) {
             throw new ValidationException("Veterinary doesnt exist");
         }
-        if (!veterinary.getRoles().equals(Role.VETERINARY.getAuthority())){
-            throw new ValidationException("Employee is not veterinary");
-        }
 
         Animal animal = animalService.getAnimal(animalId);
         if (animal == null){
