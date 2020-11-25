@@ -137,17 +137,19 @@ public class ReportV2ServiceImpl implements ReportV2Service {
         }
 
         for (Medicine medicine : report.getMedicines()){
-            if (medicineService.getMedicine(medicine.getIdMedicine()) == null) {
+            Medicine medicineOrig = medicineService.getMedicine(medicine.getIdMedicine());
+            if (medicineOrig == null) {
                 throw new ValidationException("Medicine " + medicine.getIdMedicine() + " doesnt exists");
             }
-            original.getMedicines().add(medicine);
+            original.getMedicines().add(medicineOrig);
         }
 
         for (Consumable consumable : report.getConsumables()){
-            if (consumableService.getConsumable(consumable.getIdConsumable()) == null) {
+            Consumable originalCons = consumableService.getConsumable(consumable.getIdConsumable());
+            if (originalCons == null) {
                 throw new ValidationException("Consumable " + consumable.getIdConsumable() + " doesnt exists");
             }
-            original.getConsumables().add(consumable);
+            original.getConsumables().add(originalCons);
         }
 
 
