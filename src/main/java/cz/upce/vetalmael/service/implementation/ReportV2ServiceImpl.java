@@ -140,12 +140,14 @@ public class ReportV2ServiceImpl implements ReportV2Service {
             if (medicineService.getMedicine(medicine.getIdMedicine()) == null) {
                 throw new ValidationException("Medicine " + medicine.getIdMedicine() + " doesnt exists");
             }
+            original.getMedicines().add(medicine);
         }
 
         for (Consumable consumable : report.getConsumables()){
             if (consumableService.getConsumable(consumable.getIdConsumable()) == null) {
                 throw new ValidationException("Consumable " + consumable.getIdConsumable() + " doesnt exists");
             }
+            original.getConsumables().add(consumable);
         }
 
 
