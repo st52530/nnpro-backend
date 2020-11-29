@@ -9,13 +9,13 @@ public interface ReportV2Service {
 
     Report getReport(Integer id);
 
-    List<Report> getReports(Clinic clinic, ReportState state);
+    List<Report> getReports(Clinic clinic);
 
-    List<Report> getReports(Animal animal, ReportState state);
+    List<Report> getReports(Animal animal);
+
+    List<Report> getReports(User veterinary);
 
     Report createNewReport(Report report);
 
     Report finishReport(Integer reportId, Report report);
-
-    List<Report> getReports(User veterinary);
 }

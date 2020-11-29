@@ -34,15 +34,14 @@ public class ReportV2Controller {
     @GetMapping
     public List<Report> getReports(@RequestParam(name = "clinicId", required = false) Integer clinicId,
                                    @RequestParam(name = "animalId", required = false) Integer animalId,
-                                   @RequestParam(name = "veterinaryId", required = false) Integer veterinaryId,
-                                   @RequestParam(name = "state", required = false) ReportState state) {
+                                   @RequestParam(name = "veterinaryId", required = false) Integer veterinaryId) {
 
         if (clinicId != null){
             Clinic clinic = clinicService.getClinic(clinicId);
             if (clinic == null){
                 throw new ValidationException("Clinic not exists");
             }
-            return reportService.getReports(clinic, state);
+            return reportService.getReports(clinic);
         }
 
         if (veterinaryId != null){
@@ -61,7 +60,7 @@ public class ReportV2Controller {
             if (animal == null){
                 throw new ValidationException("Animal not exists");
             }
-            return reportService.getReports(animal, state);
+            return reportService.getReports(animal);
         }
 
         return reportService.getReports();
