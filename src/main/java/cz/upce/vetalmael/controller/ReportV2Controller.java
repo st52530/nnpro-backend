@@ -1,12 +1,10 @@
 package cz.upce.vetalmael.controller;
 
 import cz.upce.vetalmael.exception.ValidationException;
-import cz.upce.vetalmael.model.Animal;
-import cz.upce.vetalmael.model.Clinic;
-import cz.upce.vetalmael.model.Report;
-import cz.upce.vetalmael.model.ReportState;
+import cz.upce.vetalmael.model.*;
 import cz.upce.vetalmael.service.AnimalService;
 import cz.upce.vetalmael.service.ClinicService;
+import cz.upce.vetalmael.service.EmployeeService;
 import cz.upce.vetalmael.service.ReportV2Service;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +28,13 @@ public class ReportV2Controller {
     @Autowired
     private AnimalService animalService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @GetMapping
     public List<Report> getReports(@RequestParam(name = "clinicId", required = false) Integer clinicId,
                                    @RequestParam(name = "animalId", required = false) Integer animalId,
+                                   @RequestParam(name = "veterinaryId", required = false) Integer veterinaryId,
                                    @RequestParam(name = "state", required = false) ReportState state) {
 
         if (clinicId != null){
@@ -41,6 +43,17 @@ public class ReportV2Controller {
                 throw new ValidationException("Clinic not exists");
             }
             return reportService.getReports(clinic, state);
+        }
+
+        if (veterinaryId != null){
+            User user = employeeService.getEmployee(veterinaryId);
+            if (user == null){
+                throw new ValidationException("User not exists");
+            }
+            if (!user.getAuthorities().contains(Role.VETERINARY)){
+                throw new ValidationException("User is not veterinary");
+            }
+            return reportService.getReports(user);
         }
 
         if (animalId != null){

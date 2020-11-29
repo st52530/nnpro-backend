@@ -67,6 +67,12 @@ public class ReportV2ServiceImpl implements ReportV2Service {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public List<Report> getReports(User veterinary) {
+        return reportV2Repository.findAllByVeterinary(veterinary);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public List<Report> getReports(Animal animal, ReportState state) {
         return reportV2Repository.findAllByAnimalAndReportState(animal, state);
     }

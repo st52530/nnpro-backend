@@ -1,9 +1,6 @@
 package cz.upce.vetalmael.service;
 
-import cz.upce.vetalmael.model.Animal;
-import cz.upce.vetalmael.model.Clinic;
-import cz.upce.vetalmael.model.Report;
-import cz.upce.vetalmael.model.ReportState;
+import cz.upce.vetalmael.model.*;
 
 import java.util.List;
 
@@ -19,4 +16,6 @@ public interface ReportV2Service {
     Report createNewReport(Report report);
 
     Report finishReport(Integer reportId, Report report);
+
+    List<Report> getReports(User veterinary);
 }

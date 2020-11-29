@@ -11,4 +11,6 @@ public interface ReportV2Repository extends JpaRepository<Report, Integer> {
     List<Report> findAllByAnimalAndReportState(Animal animal, ReportState reportState);
 
     List<Report> findAllByAnimal_Owner(User owner);
+
+    List<Report> findAllByVeterinary(User veterinary);
 }
