@@ -26,14 +26,18 @@ public class AnimalController {
     private AnimalService animalService;
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("/user/{idUser}")
+    @PostMapping("/user/{idUser}/animal")
     public ResponseEntity<Animal> addAnimal(@RequestBody AnimalDto animalDto, @PathVariable int idUser) {
+        if(animalDto.getName() == null)
+            return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(animalService.addAnimal(animalDto, idUser));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PutMapping("/{idAnimal}/user/{idUser}")
+    @PutMapping("/user/{idUser}/animal/{idAnimal}")
     public ResponseEntity<Animal> editAnimal(@RequestBody AnimalDto animalDto, @PathVariable int idAnimal, @PathVariable int idUser) {
+        if(animalDto.getName() == null)
+            return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(animalService.editAnimal(animalDto, idAnimal, idUser));
     }
 
@@ -47,19 +51,20 @@ public class AnimalController {
         }
     }
 
-    @GetMapping("/{idAnimal}/messages")
+    @GetMapping("/getMessages/{idAnimal}")
     public ResponseEntity<List<Message>> getMessages(@PathVariable int idAnimal){
         return ResponseEntity.ok(animalService.getMessages(idAnimal));
     }
 
-    @GetMapping("/{idAnimal}/reports")
+    @GetMapping("/getReports/{idAnimal}")
     public ResponseEntity<List<Report>> getReports(@PathVariable int idAnimal){
         return ResponseEntity.ok(animalService.getReports(idAnimal));
     }
 
     @GetMapping("/{idAnimal}")
     public ResponseEntity<Animal> getAnimal(@PathVariable int idAnimal){
-        return ResponseEntity.ok(animalService.getAnimal(idAnimal));
+        Animal animal = animalService.getAnimal(idAnimal);
+        return animal == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(animal);
     }
 
     @GetMapping
