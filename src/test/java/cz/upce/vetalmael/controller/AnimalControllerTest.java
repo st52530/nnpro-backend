@@ -1,35 +1,26 @@
 package cz.upce.vetalmael.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.upce.vetalmael.factories.Factory;
 import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Message;
 import cz.upce.vetalmael.model.Report;
 import cz.upce.vetalmael.model.dto.AnimalDto;
 import cz.upce.vetalmael.service.AnimalService;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import cz.upce.vetalmael.factories.Factory;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static cz.upce.vetalmael.config.SwaggerConfig.SWAGGER_AUTH_KEY;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -84,7 +75,7 @@ public class AnimalControllerTest {
 
         given(animalService.addAnimal(any(AnimalDto.class),any(int.class))).willReturn(animal);
 
-        this.mockMvc.perform(post("/animals/user/{idUser}/animal", idUser)
+        this.mockMvc.perform(post("/animals/user/{idUser}", idUser)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(animal)))
                 .andExpect(status().isOk())
@@ -102,7 +93,7 @@ public class AnimalControllerTest {
         final AnimalDto animalDto = Factory.createAnimalDto();
 
         given(animalService.editAnimal(any(AnimalDto.class),any(int.class),any(int.class))).willReturn(animal);
-        this.mockMvc.perform(put("/animals/user/{idUser}/animal/{idAnimal}", idUser, idAnimal)
+        this.mockMvc.perform(put("/animals/{idAnimal}/user/{idUser}", idUser, idAnimal)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(animalDto)))
                 .andExpect(status().isOk())
@@ -121,7 +112,7 @@ public class AnimalControllerTest {
         animalDto.setName(null);
 
         given(animalService.editAnimal(any(AnimalDto.class),any(int.class),any(int.class))).willReturn(animal);
-        this.mockMvc.perform(put("/animals/user/{idUser}/animal/{idAnimal}", idUser, idAnimal)
+        this.mockMvc.perform(put("/animals/{idAnimal}/user/{idUser}", idUser, idAnimal)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(animalDto)))
                 .andExpect(status().isBadRequest());
@@ -135,7 +126,7 @@ public class AnimalControllerTest {
         final AnimalDto animalDto = Factory.createAnimalDto();
 
         given(animalService.addAnimal(any(AnimalDto.class),any(int.class))).willReturn(animal);
-        this.mockMvc.perform(post("/animals/user/{idUser}/animal", idUser)
+        this.mockMvc.perform(post("/animals/user/{idUser}", idUser)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(animalDto)))
                 .andExpect(status().isOk())
@@ -153,7 +144,7 @@ public class AnimalControllerTest {
         animalDto.setName(null);
 
         given(animalService.addAnimal(any(AnimalDto.class),any(int.class))).willReturn(animal);
-        this.mockMvc.perform(post("/animals/user/{idUser}/animal", idUser)
+        this.mockMvc.perform(post("/animals/user/{idUser}", idUser)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(animalDto)))
                 .andExpect(status().isBadRequest());
@@ -166,7 +157,7 @@ public class AnimalControllerTest {
         final Animal animal = Factory.createAnimal();
 
         given(animalService.addAnimal(any(AnimalDto.class),any(int.class))).willReturn(animal);
-        this.mockMvc.perform(post("/animals/user/{idUser}/animal", idUser)
+        this.mockMvc.perform(post("/animals/user/{idUser}", idUser)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(null)))
                 .andExpect(status().isBadRequest());
@@ -202,7 +193,7 @@ public class AnimalControllerTest {
 
         given(animalService.getMessages(any(int.class))).willReturn(messages);
 
-        this.mockMvc.perform(get("/animals/getMessages/{idAnimal}", idAnimal))
+        this.mockMvc.perform(get("/animals/{idAnimal}/messages", idAnimal))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", CoreMatchers.is(messages.size())));
     }
@@ -215,7 +206,7 @@ public class AnimalControllerTest {
 
         given(animalService.getReports(any(int.class))).willReturn(reports);
 
-        this.mockMvc.perform(get("/animals/getReports/{idAnimal}", idAnimal))
+        this.mockMvc.perform(get("/animals/{idAnimal}/reports", idAnimal))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", CoreMatchers.is(reports.size())));
     }

@@ -99,7 +99,7 @@ public class ClinicControllerTest {
         final int idClinic = 1;
         doThrow(new EmptyResultDataAccessException(0)).when(clinicService).removeClinic(any(int.class));
 
-        this.mockMvc.perform(delete("/{idClinic}", idClinic))
+        this.mockMvc.perform(delete("/clinics/{idClinic}", idClinic))
                 .andExpect(status().isNotFound());
     }
 
@@ -151,10 +151,13 @@ public class ClinicControllerTest {
     void shouldFetch400WhenAddMedicineToNotExistClinic() throws Exception {
         final int idMedicine = 0;
         final Clinic clinic = Factory.createClinic();
+        final ClinicMedicineDto clinicMedicineDto = Factory.createClinicMedicineDto();
 
         doThrow(new Exception()).when(clinicMedicineService).addClinicMedicine(any(ClinicMedicineDto.class),any(int.class),any(int.class));
 
-        this.mockMvc.perform(post("/clinics/{idClinic}/clinic-medicine/medicine/{idMedicine}", clinic.getIdClinic(), idMedicine))
+        this.mockMvc.perform(post("/clinics/{idClinic}/clinic-medicine/medicine/{idMedicine}", clinic.getIdClinic(), idMedicine)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(clinicMedicineDto)))
                 .andExpect(status().isBadRequest());
     }
 
@@ -234,8 +237,11 @@ public class ClinicControllerTest {
     void shouldFetch404WhenAddConsumableToClinic() throws Exception {
         final int idClinic = 1;
         final int idClinicMedicine = 1;
+        final ClinicMedicineDto clinicMedicineDto = Factory.createClinicMedicineDto();
         doThrow(new EmptyResultDataAccessException(0)).when(clinicConsumableService).addClinicConsumable(any(ClinicConsumableDto.class),any(int.class),any(int.class));
-        this.mockMvc.perform(post("/clinics/{idClinic}/clinic-consumable/consumable/{idConsumable}", idClinic, idClinicMedicine))
+        this.mockMvc.perform(post("/clinics/{idClinic}/clinic-consumable/consumable/{idConsumable}", idClinic, idClinicMedicine)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(clinicMedicineDto)))
                 .andExpect(status().isBadRequest());
     }
 
@@ -328,9 +334,4 @@ public class ClinicControllerTest {
                 .andExpect(jsonPath("$.quantityInStock", CoreMatchers.is(clinicMedicine.getQuantityInStock())))
                 .andExpect(jsonPath("$.idClinicMedicine", CoreMatchers.is(clinicMedicine.getIdClinicMedicine())));
     }
-
-
-
-
-
 }
