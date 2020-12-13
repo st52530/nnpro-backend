@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,5 +17,7 @@ public class EmployeeDto {
     private String fullName;
     private String password;
     private Role role;
+    private String address;
+    private String phoneNumber;
 
 }

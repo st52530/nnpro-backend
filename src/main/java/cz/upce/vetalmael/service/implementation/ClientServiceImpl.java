@@ -50,6 +50,8 @@ public class ClientServiceImpl implements ClientService {
         dbUser.setFullName(user.getFullName());
         dbUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         dbUser.setRoles(Role.CLIENT.getAuthority());
+        dbUser.setAddress(user.getAddress());
+        dbUser.setPhoneNumber(user.getPhoneNumber());
         return userRepository.save(dbUser);
     }
 
@@ -61,6 +63,12 @@ public class ClientServiceImpl implements ClientService {
         }
         if(client.getFullName() != null){
             user.setFullName(client.getFullName());
+        }
+        if(client.getPhoneNumber() != null){
+            user.setPhoneNumber(client.getPhoneNumber());
+        }
+        if(client.getAddress() != null){
+            user.setAddress(client.getAddress());
         }
         return userRepository.save(user);
     }

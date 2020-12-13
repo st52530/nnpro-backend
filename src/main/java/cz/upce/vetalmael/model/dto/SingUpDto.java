@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,5 +15,7 @@ public class SingUpDto {
     private String email;
     private String fullName;
     private String password;
+    private String address;
+    private String phoneNumber;
 
 }

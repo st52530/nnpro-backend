@@ -39,7 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/swagger"
                 ).permitAll()
-                //AdministratorController
+                //AdministratorController — povolení endpointu
                 .antMatchers("/administrators**").permitAll()
                 //AnimalController
                 /*.antMatchers(HttpMethod.POST, "/animals").hasAnyAuthority(Role.VETERINARY_TECHNICIAN.getAuthority(), Role.VETERINARY.getAuthority())
