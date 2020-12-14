@@ -10,6 +10,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     List<Reservation> findAllByClient_idUser(int idUser);
 
-    int countAllByDateGreaterThanAndDateLessThan(Date start, Date end);
+    int countAllByDateGreaterThanAndDateLessThanAndIdReservationIsNot(Date start, Date end, int idReservation);
 
 }
