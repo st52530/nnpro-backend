@@ -13,5 +13,7 @@ public class SingUpDto {
     private String email;
     private String fullName;
     private String password;
+    private String address;
+    private String phoneNumber;
 
 }

@@ -39,6 +39,12 @@ public class User implements Serializable, UserDetails {
     @JsonIgnore
     private String password;
 
+    @Column
+    private String address;
+
+    @Column
+    private String phoneNumber;
+
     @Column(nullable = false)
     private String roles;
 
