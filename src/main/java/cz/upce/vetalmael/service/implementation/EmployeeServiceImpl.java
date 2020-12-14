@@ -42,6 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setFullName(employeeDto.getFullName());
         employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
         employee.setRoles(employeeDto.getRole().toString());
+        employee.setAddress(employeeDto.getAddress());
+        employee.setPhoneNumber(employeeDto.getPhoneNumber());
         Clinic clinic = clinicService.getClinic(idClinic);
         if (clinic == null) {
             throw new IllegalArgumentException("Clinic not exists");
@@ -64,6 +66,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setFullName(employeeDto.getFullName());
         employee.setPassword(bCryptPasswordEncoder.encode(employeeDto.getPassword()));
         employee.setRoles(employeeDto.getRole().toString());
+        employee.setAddress(employeeDto.getAddress());
+        employee.setPhoneNumber(employeeDto.getPhoneNumber());
         Clinic clinic = clinicService.getClinic(idClinic);
         if (clinic == null) {
             throw new IllegalArgumentException("Clinic not exists");

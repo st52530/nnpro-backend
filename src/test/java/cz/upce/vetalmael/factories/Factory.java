@@ -49,7 +49,7 @@ public class Factory {
     }
 
     public static User createUser() {
-        return new User(idUser++,"user" + idUser + "@email.com", "username","fullName","password","role",null,null,null,null,null);
+        return new User(idUser++,"user" + idUser + "@email.com", "username","fullName","password","address", "123456789","role",null,null,null,null,null);
     }
 
     public static Message createMessage() {

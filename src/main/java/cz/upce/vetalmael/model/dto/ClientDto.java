@@ -13,4 +13,6 @@ public class ClientDto {
     public static final Role ROLE = Role.CLIENT;
     private String email;
     private String fullName;
+    private String address;
+    private String phoneNumber;
 }
