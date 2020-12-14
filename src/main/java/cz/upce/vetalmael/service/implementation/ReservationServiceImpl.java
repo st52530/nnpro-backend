@@ -26,8 +26,8 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation addReservation(ReservationDto reservationDto, int idClinic, int idClient) throws Exception {
         Reservation reservation = new Reservation();
+        checkDate(reservationDto.getDate(), 0);
         reservation.setDate(reservationDto.getDate());
-        checkDate(reservation);
         User client = entityManager.getReference(User.class, idClient);
         client.setIdUser(idClient);
         reservation.setClient(client);
@@ -37,11 +37,11 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    private void checkDate(Reservation reservation) throws Exception {
+    private void checkDate(Date reservation, int idReservation) throws Exception {
         long tenMinutes = 600000;
-        Date start = new Date(reservation.getDate().getTime()-tenMinutes);
-        Date end = new Date(reservation.getDate().getTime()+tenMinutes);
-        int count = reservationRepository.countAllByDateGreaterThanAndDateLessThan(start, end);
+        Date start = new Date(reservation.getTime()-tenMinutes);
+        Date end = new Date(reservation.getTime()+tenMinutes);
+        int count = reservationRepository.countAllByDateGreaterThanAndDateLessThanAndIdReservationIsNot(start, end, idReservation);
         if(count > 0){
             throw new Exception("Time already booked");
         }
@@ -50,8 +50,8 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation editReservation(ReservationDto reservationDto, int idReservation) throws Exception {
         Reservation reservation = reservationRepository.getOne(idReservation);
+        checkDate(reservationDto.getDate(), idReservation);
         reservation.setDate(reservationDto.getDate());
-        checkDate(reservation);
         return reservationRepository.save(reservation);
     }
 
