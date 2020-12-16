@@ -28,6 +28,8 @@ public class ExportServiceImpl implements ExportService {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         Document document = new Document();
 
+        Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, "Cp1250", true);
+
         Report report = reportRepository.findById(idReport).orElse(null);
 
         if (null == report)
@@ -38,46 +40,56 @@ public class ExportServiceImpl implements ExportService {
 
             document.open();
 
+            Image image = Image.getInstance("src\\main\\java\\cz\\upce\\vetalmael\\images\\logo.png");
+            if (null != image) {
+                image.setAlignment(Element.ALIGN_CENTER);
+                image.scalePercent(50, 50);
+                document.add(image);
+            }
+
             PdfPTable tableDescription = new PdfPTable(2);
-            addTableHeader(tableDescription, new String[]{"Popis", "Hodnota"});
+            addTableHeader(tableDescription, new String[]{"Popis", "Hodnota"}, font);
 
-            if(report.getTextDescription() != null)
-                addRows(tableDescription, "Potíže", report.getTextDescription());
+            if (report.getTextDescription() != null)
+                addRows(tableDescription, "Potíže", report.getTextDescription(), font);
 
-            if(report.getTextDiagnosis() != null)
-                addRows(tableDescription, "Popis diagnozy", report.getTextDiagnosis());
+            if (report.getTextDiagnosis() != null)
+                addRows(tableDescription, "Popis diagnozy", report.getTextDiagnosis(), font);
 
-            if(report.getTextRecommendation() != null)
-                addRows(tableDescription, "Doporučení", report.getTextRecommendation());
+            if (report.getTextRecommendation() != null)
+                addRows(tableDescription, "Doporučení", report.getTextRecommendation(), font);
 
-            if(report.getDate() != null)
-                addRows(tableDescription, "Datum návštěvy", report.getDate().toString());
+            if (report.getDate() != null)
+                addRows(tableDescription, "Datum návštěvy", report.getDate().toString(), font);
 
-            if(report.getAnimal() != null)
-                addRows(tableDescription, "Jméno zvířete", report.getAnimal().getName());
+            if (report.getAnimal() != null)
+                addRows(tableDescription, "Jméno zvířete", report.getAnimal().getName(), font);
 
-            if(report.getVeterinary() != null)
-                addRows(tableDescription, "Jméno veterináře", report.getVeterinary().getFullName());
+            if (report.getVeterinary() != null)
+                addRows(tableDescription, "Jméno veterináře", report.getVeterinary().getFullName(), font);
 
-            if(report.getAnimal() != null && report.getAnimal().getOwner() != null)
-                addRows(tableDescription, "Jméno majitele", report.getAnimal().getOwner().getFullName());
+            if (report.getAnimal() != null && report.getAnimal().getOwner() != null)
+                addRows(tableDescription, "Jméno majitele", report.getAnimal().getOwner().getFullName(), font);
 
-            if(report.getDiagnosis() != null )
-                addRows(tableDescription, "Název diagnozy", report.getDiagnosis().getName());
+            if (report.getDiagnosis() != null)
+                addRows(tableDescription, "Název diagnozy", report.getDiagnosis().getName(), font);
 
             document.add(tableDescription);
 
             PdfPTable pricesTable = new PdfPTable(2);
-            addTableHeader(pricesTable, new String[]{"Název", "Cena za jednotku"});
+            double summaryPrice = 0;
+            addTableHeader(pricesTable, new String[]{"Název", "Cena za jednotku"}, font);
 
-            if(report.getConsumables() != null && !report.getConsumables().isEmpty())
-                addRowsConsumable(pricesTable, report.getConsumables());
+            if (report.getConsumables() != null && !report.getConsumables().isEmpty())
+                summaryPrice += addRowsConsumable(pricesTable, report.getConsumables(), font);
 
-            if(report.getOperation() != null)
-                addRowsOperation(pricesTable, report.getOperation());
+            if (report.getOperation() != null)
+                summaryPrice += addRowsOperation(pricesTable, report.getOperation(), font);
 
-            if(report.getMedicines() != null && !report.getMedicines().isEmpty())
-                addRowsMedicines(pricesTable, report.getMedicines());
+            if (report.getMedicines() != null && !report.getMedicines().isEmpty())
+                addRowsMedicines(pricesTable, report.getMedicines(), font);
+
+            addTableHeader(pricesTable, new String[]{"Celková cena", summaryPrice + " CZK"}, font);
 
             document.add(pricesTable);
 
@@ -89,40 +101,42 @@ public class ExportServiceImpl implements ExportService {
         return new ByteArrayInputStream(out.toByteArray());
     }
 
-    private static void addTableHeader(PdfPTable table, String[] headers) {
+    private static void addTableHeader(PdfPTable table, String[] headers, Font font) {
         Stream.of(headers)
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
                     header.setBackgroundColor(BaseColor.LIGHT_GRAY);
                     header.setBorderWidth(2);
-                    header.setPhrase(new Phrase(columnTitle));
+                    header.setPhrase(new Phrase(columnTitle, font));
                     table.addCell(header);
                 });
     }
 
-    private static void addRowsConsumable(PdfPTable table, Set<Consumable> consumables) {
+    private static double addRowsConsumable(PdfPTable table, Set<Consumable> consumables, Font font) {
+        double summaryPrice = 0;
         for (Consumable consumable : consumables) {
-            table.addCell(consumable.getName());
-            table.addCell(String.valueOf(consumable.getPrice()));
+            table.addCell(new Phrase(consumable.getName(), font));
+            table.addCell(new Phrase(String.valueOf(consumable.getPrice()), font));
+            summaryPrice = summaryPrice + consumable.getPrice();
         }
-
+        return summaryPrice;
     }
 
-    private static void addRowsMedicines(PdfPTable table, Set<Medicine> medicines) {
+    private static void addRowsMedicines(PdfPTable table, Set<Medicine> medicines, Font font) {
         for (Medicine medicine : medicines) {
-            table.addCell(medicine.getName());
-            table.addCell("0");
+            table.addCell(new Phrase(medicine.getName(), font));
+            table.addCell(new Phrase("0", font));
         }
-
     }
 
-    private static void addRowsOperation(PdfPTable table, Operation operation) {
-        table.addCell(operation.getName());
-        table.addCell(String.valueOf(operation.getPrice()));
+    private static double addRowsOperation(PdfPTable table, Operation operation, Font font) {
+        table.addCell(new Phrase(operation.getName(), font));
+        table.addCell(new Phrase(String.valueOf(operation.getPrice()), font));
+        return operation.getPrice();
     }
 
-    private static void addRows(PdfPTable table, String description, String value) {
-        table.addCell(description);
-        table.addCell(value);
+    private static void addRows(PdfPTable table, String description, String value, Font font) {
+        table.addCell(new Phrase(description, font));
+        table.addCell(new Phrase(value, font));
     }
 }
