@@ -36,7 +36,7 @@ public class Report implements Serializable {
     private ReportState reportState;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false, insertable = false)
+    @Column(nullable = false, updatable = false)
     private Timestamp date;
 
     @ManyToOne(fetch = FetchType.LAZY)
