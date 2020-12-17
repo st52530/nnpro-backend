@@ -25,7 +25,7 @@ public class Message implements Serializable {
     private String text;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false, insertable = false)
+    @Column(nullable = false, updatable = false)
     private Timestamp date;
 
     @ManyToOne(fetch = FetchType.LAZY)
