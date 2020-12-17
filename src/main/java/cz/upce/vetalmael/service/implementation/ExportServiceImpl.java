@@ -40,13 +40,6 @@ public class ExportServiceImpl implements ExportService {
 
             document.open();
 
-            Image image = Image.getInstance("src\\main\\java\\cz\\upce\\vetalmael\\images\\logo.png");
-            if (null != image) {
-                image.setAlignment(Element.ALIGN_CENTER);
-                image.scalePercent(50, 50);
-                document.add(image);
-            }
-
             PdfPTable tableDescription = new PdfPTable(2);
             addTableHeader(tableDescription, new String[]{"Popis", "Hodnota"}, font);
 
