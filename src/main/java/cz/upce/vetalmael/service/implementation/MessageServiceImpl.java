@@ -4,6 +4,7 @@ import cz.upce.vetalmael.model.Animal;
 import cz.upce.vetalmael.model.Message;
 import cz.upce.vetalmael.model.User;
 import cz.upce.vetalmael.model.dto.MessageDto;
+import cz.upce.vetalmael.repository.AnimalRepository;
 import cz.upce.vetalmael.repository.MessageRepository;
 import cz.upce.vetalmael.service.LoginService;
 import cz.upce.vetalmael.service.MessageService;
@@ -26,11 +27,14 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AnimalRepository animalRepository;
+
     @Override
     public Message sendMessage(MessageDto messageDto, int idAnimal, String senderUsername) {
         Message message = new Message();
         message.setText(messageDto.getText());
-        Animal animal = entityManager.getReference(Animal.class, idAnimal);
+        Animal animal = animalRepository.getOne(idAnimal);
         message.setAnimal(animal);
         User sender = userService.findByUsername(senderUsername);
         message.setSender(sender);
